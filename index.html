@@ -1,11 +1,592 @@
 <!DOCTYPE html>
 <html lang="en">
- <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
- </head>
- <body>
-  <h1>Hello World...</h1>
- </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Light High School Uganda — Enlightening Minds, Shaping Futures. A centre of academic excellence in Uganda offering O-Level and A-Level education." />
+  <title>Light High School | Enlightening Minds, Shaping Futures</title>
+
+  <!-- Favicon placeholder -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏫</text></svg>" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <!-- Font Awesome 6 -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet" />
+
+  <!-- AOS — Animate On Scroll -->
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+
+  <!-- Custom CSS -->
+  <link href="css/style.css" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- Preloader -->
+  <div id="preloader">
+    <div class="preloader-logo">
+      <div class="preloader-spinner"></div>
+      <p class="fw-semibold text-primary-custom mb-0">Light High School</p>
+    </div>
+  </div>
+
+  <!-- ===================== NAVBAR ===================== -->
+  <nav id="mainNav" class="navbar navbar-expand-lg fixed-top" style="background: transparent;">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">
+        <div class="brand-icon"><i class="fa-solid fa-lightbulb"></i></div>
+        Light <span>High School</span>
+      </a>
+      <button class="navbar-toggler border-0 p-1" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="academics.html">Academics</a></li>
+          <li class="nav-item"><a class="nav-link" href="admissions.html">Admissions</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+          <li class="nav-item ms-lg-2">
+            <a class="nav-link nav-btn" href="admissions.html">Apply Now</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===================== HERO ===================== -->
+  <section class="hero" id="home">
+    <div class="container position-relative" style="z-index:2;">
+      <div class="row">
+        <div class="col-lg-8 col-xl-7">
+          <div class="hero-badge" data-aos="fade-down" data-aos-duration="600">
+            <i class="fa-solid fa-location-dot"></i> Uganda, East Africa
+          </div>
+          <h1 class="hero-title" data-aos="fade-up" data-aos-duration="700" data-aos-delay="100">
+            Enlightening Minds,<br /><span>Shaping Futures</span>
+          </h1>
+          <p class="hero-subtitle" data-aos="fade-up" data-aos-duration="700" data-aos-delay="200">
+            Light High School is a centre of academic excellence dedicated to nurturing
+            well-rounded, disciplined, and forward-thinking students ready to lead Uganda
+            and the world.
+          </p>
+          <div class="hero-actions" data-aos="fade-up" data-aos-duration="700" data-aos-delay="300">
+            <a href="admissions.html" class="btn-primary-custom">
+              <i class="fa-solid fa-pen-to-square"></i> Apply for Admission
+            </a>
+            <a href="about.html" class="btn-outline-custom">
+              <i class="fa-solid fa-circle-play"></i> Learn More
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <span>Scroll</span>
+      <i class="fa-solid fa-chevron-down"></i>
+    </div>
+  </section>
+
+  <!-- ===================== STATS BAR ===================== -->
+  <section class="stats-bar">
+    <div class="container-fluid px-0">
+      <div class="row g-0">
+        <div class="col-6 col-md-3">
+          <div class="stat-item">
+            <div class="stat-number">
+              <span data-counter data-target="1200">0</span>+
+            </div>
+            <div class="stat-label">Students Enrolled</div>
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="stat-item">
+            <div class="stat-number">
+              <span data-counter data-target="85">0</span>+
+            </div>
+            <div class="stat-label">Qualified Teachers</div>
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="stat-item">
+            <div class="stat-number">
+              <span data-counter data-target="97">0</span>%
+            </div>
+            <div class="stat-label">Pass Rate (2023)</div>
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="stat-item">
+            <div class="stat-number">
+              <span data-counter data-target="25">0</span>+
+            </div>
+            <div class="stat-label">Years of Excellence</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== ABOUT SNIPPET ===================== -->
+  <section class="section-pad bg-white">
+    <div class="container">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-6" data-aos="fade-right">
+          <div class="position-relative">
+            <img
+              src="https://images.unsplash.com/photo-1604872441539-ef1db9b25f92?w=700&q=80"
+              alt="Students at Light High School"
+              class="img-fluid rounded-4 shadow-lg"
+            />
+            <div class="position-absolute bottom-0 start-0 m-3">
+              <div class="bg-white rounded-3 shadow p-3 d-flex align-items-center gap-3" style="max-width:220px;">
+                <div class="bg-primary-custom rounded-circle p-2 text-white">
+                  <i class="fa-solid fa-trophy fa-lg"></i>
+                </div>
+                <div>
+                  <div class="fw-bold" style="font-size:.85rem; color:#0f1f14;">National Award</div>
+                  <div style="font-size:.75rem; color:#6b7280;">Best School 2023 — UCE</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6" data-aos="fade-left">
+          <span class="section-label">Who We Are</span>
+          <h2 class="section-title">A Legacy of <span>Academic Excellence</span></h2>
+          <div class="divider"></div>
+          <p class="text-secondary mb-3">
+            Founded over two decades ago, Light High School has grown into one of Uganda's most
+            respected secondary institutions. We offer both O-Level (UCE) and A-Level (UACE)
+            programmes, guiding students through their formative years with quality education,
+            moral grounding, and practical life skills.
+          </p>
+          <p class="text-secondary mb-4">
+            Our dedicated staff, modern facilities, and vibrant school community create an
+            environment where every student can discover their potential and thrive.
+          </p>
+          <div class="row g-3 mb-4">
+            <div class="col-6">
+              <div class="d-flex gap-2 align-items-start">
+                <i class="fa-solid fa-circle-check text-primary-custom mt-1"></i>
+                <span style="font-size:.9rem;">UNEB-registered institution</span>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="d-flex gap-2 align-items-start">
+                <i class="fa-solid fa-circle-check text-primary-custom mt-1"></i>
+                <span style="font-size:.9rem;">Science & Arts streams</span>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="d-flex gap-2 align-items-start">
+                <i class="fa-solid fa-circle-check text-primary-custom mt-1"></i>
+                <span style="font-size:.9rem;">Boarding & day options</span>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="d-flex gap-2 align-items-start">
+                <i class="fa-solid fa-circle-check text-primary-custom mt-1"></i>
+                <span style="font-size:.9rem;">Fully equipped library</span>
+              </div>
+            </div>
+          </div>
+          <a href="about.html" class="btn-primary-custom">
+            Discover Our Story <i class="fa-solid fa-arrow-right ms-1"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== ACADEMIC HIGHLIGHTS ===================== -->
+  <section class="section-pad bg-light-custom">
+    <div class="container">
+      <div class="text-center mb-5" data-aos="fade-up">
+        <span class="section-label">What We Offer</span>
+        <h2 class="section-title">Academic <span>Programmes</span></h2>
+        <div class="divider divider-center"></div>
+        <p class="section-subtitle mx-auto">
+          Structured learning pathways designed to develop critical thinking,
+          creativity, and academic mastery at every level.
+        </p>
+      </div>
+      <div class="row g-4">
+        <!-- Card 1 -->
+        <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="0">
+          <div class="card-hover p-4 h-100">
+            <div class="icon-box mb-3"><i class="fa-solid fa-book-open"></i></div>
+            <h5 class="fw-bold mb-2">O-Level (UCE)</h5>
+            <p class="text-secondary small mb-3">
+              Four years of comprehensive learning covering sciences, humanities, and languages,
+              culminating in the Uganda Certificate of Education exams.
+            </p>
+            <a href="academics.html" class="text-primary-custom fw-semibold small">
+              Learn more <i class="fa-solid fa-arrow-right ms-1"></i>
+            </a>
+          </div>
+        </div>
+        <!-- Card 2 -->
+        <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+          <div class="card-hover p-4 h-100">
+            <div class="icon-box mb-3"><i class="fa-solid fa-graduation-cap"></i></div>
+            <h5 class="fw-bold mb-2">A-Level (UACE)</h5>
+            <p class="text-secondary small mb-3">
+              Two-year advanced programme with Science, Arts, and Business combinations, preparing
+              students for the Uganda Advanced Certificate of Education and university entry.
+            </p>
+            <a href="academics.html" class="text-primary-custom fw-semibold small">
+              Learn more <i class="fa-solid fa-arrow-right ms-1"></i>
+            </a>
+          </div>
+        </div>
+        <!-- Card 3 -->
+        <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+          <div class="card-hover p-4 h-100">
+            <div class="icon-box mb-3"><i class="fa-solid fa-flask"></i></div>
+            <h5 class="fw-bold mb-2">Science & Labs</h5>
+            <p class="text-secondary small mb-3">
+              Fully equipped Physics, Chemistry, and Biology laboratories where students engage
+              in hands-on experiments and develop scientific thinking.
+            </p>
+            <a href="academics.html" class="text-primary-custom fw-semibold small">
+              Learn more <i class="fa-solid fa-arrow-right ms-1"></i>
+            </a>
+          </div>
+        </div>
+        <!-- Card 4 -->
+        <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="0">
+          <div class="card-hover p-4 h-100">
+            <div class="icon-box mb-3"><i class="fa-solid fa-computer"></i></div>
+            <h5 class="fw-bold mb-2">ICT & Computing</h5>
+            <p class="text-secondary small mb-3">
+              A modern computer lab with internet access, teaching practical digital literacy
+              and computer science skills essential for the 21st century.
+            </p>
+            <a href="academics.html" class="text-primary-custom fw-semibold small">
+              Learn more <i class="fa-solid fa-arrow-right ms-1"></i>
+            </a>
+          </div>
+        </div>
+        <!-- Card 5 -->
+        <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+          <div class="card-hover p-4 h-100">
+            <div class="icon-box mb-3"><i class="fa-solid fa-palette"></i></div>
+            <h5 class="fw-bold mb-2">Arts & Humanities</h5>
+            <p class="text-secondary small mb-3">
+              Literature, History, Geography, and Fine Art programmes that cultivate
+              creative expression and an appreciation for culture and society.
+            </p>
+            <a href="academics.html" class="text-primary-custom fw-semibold small">
+              Learn more <i class="fa-solid fa-arrow-right ms-1"></i>
+            </a>
+          </div>
+        </div>
+        <!-- Card 6 -->
+        <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+          <div class="card-hover p-4 h-100">
+            <div class="icon-box mb-3"><i class="fa-solid fa-futbol"></i></div>
+            <h5 class="fw-bold mb-2">Co-Curricular</h5>
+            <p class="text-secondary small mb-3">
+              Sports, music, drama, debate, and numerous clubs that develop leadership,
+              teamwork, and confidence beyond the classroom.
+            </p>
+            <a href="academics.html" class="text-primary-custom fw-semibold small">
+              Learn more <i class="fa-solid fa-arrow-right ms-1"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== MISSION / VISION STRIP ===================== -->
+  <section class="section-pad-sm" style="background: var(--clr-primary);">
+    <div class="container">
+      <div class="row g-4 text-center text-white">
+        <div class="col-md-4" data-aos="fade-up">
+          <i class="fa-solid fa-bullseye fa-2x mb-3" style="color:var(--clr-gold);"></i>
+          <h5 class="fw-bold mb-2">Our Mission</h5>
+          <p class="mb-0" style="color:rgba(255,255,255,.8); font-size:.9rem;">
+            To provide quality, holistic education that equips students with
+            knowledge, skills, and values to serve God, Uganda, and humanity.
+          </p>
+        </div>
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+          <i class="fa-solid fa-eye fa-2x mb-3" style="color:var(--clr-gold);"></i>
+          <h5 class="fw-bold mb-2">Our Vision</h5>
+          <p class="mb-0" style="color:rgba(255,255,255,.8); font-size:.9rem;">
+            To be a leading centre of academic excellence in Uganda, producing
+            ethical, innovative, and globally competitive graduates.
+          </p>
+        </div>
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+          <i class="fa-solid fa-star fa-2x mb-3" style="color:var(--clr-gold);"></i>
+          <h5 class="fw-bold mb-2">Our Motto</h5>
+          <p class="mb-0" style="color:rgba(255,255,255,.8); font-size:.9rem;">
+            <em>"Lux et Scientia"</em> — Light and Knowledge. We illuminate paths,
+            open minds, and inspire greatness in every student.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== LATEST NEWS ===================== -->
+  <section class="section-pad bg-white">
+    <div class="container">
+      <div class="row align-items-end mb-5">
+        <div class="col-lg-7" data-aos="fade-right">
+          <span class="section-label">Stay Informed</span>
+          <h2 class="section-title">News &amp; <span>Events</span></h2>
+          <div class="divider"></div>
+        </div>
+        <div class="col-lg-5 text-lg-end" data-aos="fade-left">
+          <a href="#" class="text-primary-custom fw-semibold">
+            View all updates <i class="fa-solid fa-arrow-right ms-1"></i>
+          </a>
+        </div>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-4" data-aos="fade-up">
+          <div class="news-card">
+            <div class="news-img">
+              <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=500&q=70" alt="Prize Day" />
+            </div>
+            <div class="p-4">
+              <span class="news-tag">Event</span>
+              <p class="news-date mt-2 mb-1"><i class="fa-regular fa-calendar me-1"></i> April 20, 2025</p>
+              <h6 class="fw-bold mb-2">Annual Prize Giving Day &amp; Parents' Evening</h6>
+              <p class="small text-secondary mb-3">
+                Join us for our annual celebration of student achievement. Top performers will be
+                recognised and awards presented by the guest of honour.
+              </p>
+              <a href="#" class="text-primary-custom fw-semibold small">Read more <i class="fa-solid fa-arrow-right ms-1"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+          <div class="news-card">
+            <div class="news-img">
+              <img src="https://images.unsplash.com/photo-1588072432836-e10032774350?w=500&q=70" alt="UCE Results" />
+            </div>
+            <div class="p-4">
+              <span class="news-tag">Academics</span>
+              <p class="news-date mt-2 mb-1"><i class="fa-regular fa-calendar me-1"></i> February 5, 2025</p>
+              <h6 class="fw-bold mb-2">Outstanding UCE 2024 Results Released</h6>
+              <p class="small text-secondary mb-3">
+                Light High School achieved a 97% pass rate in the 2024 UCE exams with 42 students
+                attaining Division One — our best performance yet.
+              </p>
+              <a href="#" class="text-primary-custom fw-semibold small">Read more <i class="fa-solid fa-arrow-right ms-1"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+          <div class="news-card">
+            <div class="news-img">
+              <img src="https://images.unsplash.com/photo-1571260899304-425eee4c7efc?w=500&q=70" alt="Sports Day" />
+            </div>
+            <div class="p-4">
+              <span class="news-tag">Sports</span>
+              <p class="news-date mt-2 mb-1"><i class="fa-regular fa-calendar me-1"></i> March 15, 2025</p>
+              <h6 class="fw-bold mb-2">Inter-House Sports Championships 2025</h6>
+              <p class="small text-secondary mb-3">
+                This year's sports day was a spectacular showcase of athletic talent. Nile House
+                claimed the overall trophy after a thrilling final day of competition.
+              </p>
+              <a href="#" class="text-primary-custom fw-semibold small">Read more <i class="fa-solid fa-arrow-right ms-1"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== TESTIMONIALS ===================== -->
+  <section class="section-pad bg-light-custom">
+    <div class="container">
+      <div class="text-center mb-5" data-aos="fade-up">
+        <span class="section-label">What They Say</span>
+        <h2 class="section-title">Voices from Our <span>Community</span></h2>
+        <div class="divider divider-center"></div>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-4" data-aos="fade-up">
+          <div class="testimonial-card">
+            <div class="stars">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+            </div>
+            <p>"Light High School transformed my life. The teachers pushed me to excel and I
+            graduated with Division One, earning a government scholarship to Makerere University."</p>
+            <div class="author">
+              <img src="https://i.pravatar.cc/80?img=12" alt="Amara Nakayiza" class="author-avatar" />
+              <div>
+                <div class="author-name">Amara Nakayiza</div>
+                <div class="author-role">Former Student, Class of 2022</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+          <div class="testimonial-card">
+            <div class="stars">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+            </div>
+            <p>"As a parent, I have seen incredible growth in my son — academically, socially,
+            and spiritually. The school's discipline and care for students is unmatched."</p>
+            <div class="author">
+              <img src="https://i.pravatar.cc/80?img=33" alt="Mr. David Ssemakula" class="author-avatar" />
+              <div>
+                <div class="author-name">Mr. David Ssemakula</div>
+                <div class="author-role">Parent, S.4 Student</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+          <div class="testimonial-card">
+            <div class="stars">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star-half-stroke"></i>
+            </div>
+            <p>"Teaching at Light High School has been the most rewarding experience of my career.
+            The collaborative environment encourages both teachers and students to always give their best."</p>
+            <div class="author">
+              <img src="https://i.pravatar.cc/80?img=47" alt="Ms. Grace Atim" class="author-avatar" />
+              <div>
+                <div class="author-name">Ms. Grace Atim</div>
+                <div class="author-role">Mathematics Teacher</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CTA BANNER ===================== -->
+  <section class="cta-banner section-pad-sm">
+    <div class="container position-relative" style="z-index:1;">
+      <div class="row align-items-center g-4">
+        <div class="col-lg-8" data-aos="fade-right">
+          <h2 class="text-white fw-bold mb-2" style="font-family:var(--ff-heading); font-size:clamp(1.6rem,3.5vw,2.2rem);">
+            Ready to Join the Light Family?
+          </h2>
+          <p style="color:rgba(255,255,255,.8); font-size:1.05rem; margin:0;">
+            Applications for the 2025/2026 academic year are open. Secure your place at
+            one of Uganda's finest secondary schools today.
+          </p>
+        </div>
+        <div class="col-lg-4 text-lg-end" data-aos="fade-left">
+          <a href="admissions.html" class="btn-gold me-2">
+            <i class="fa-solid fa-pen-to-square"></i> Apply Now
+          </a>
+          <a href="contact.html" class="btn-outline-custom mt-2 mt-sm-0">
+            <i class="fa-solid fa-phone"></i> Contact Us
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="footer pt-5 pb-0">
+    <div class="container">
+      <div class="row g-5 pb-5">
+        <!-- Brand -->
+        <div class="col-lg-4">
+          <a href="index.html" class="navbar-brand mb-3 d-inline-flex text-white text-decoration-none" style="font-family:var(--ff-heading);">
+            <div class="brand-icon me-2" style="background:var(--clr-gold); color:#0f1f14; width:38px; height:38px; border-radius:50%; display:flex; align-items:center; justify-content:center;">
+              <i class="fa-solid fa-lightbulb"></i>
+            </div>
+            Light <span style="color:var(--clr-gold); margin-left:.3rem;">High School</span>
+          </a>
+          <p style="font-size:.9rem; color:rgba(255,255,255,.65); line-height:1.8;" class="mb-4">
+            Enlightening Minds, Shaping Futures. A centre of academic excellence
+            in the heart of Uganda, committed to the total development of every student.
+          </p>
+          <div class="social-links">
+            <a href="#" class="social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-link" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-link" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="#" class="social-link" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+          </div>
+        </div>
+        <!-- Quick Links -->
+        <div class="col-6 col-lg-2">
+          <h5>Quick Links</h5>
+          <ul class="footer-links">
+            <li><a href="index.html"><i class="fa-solid fa-chevron-right"></i>Home</a></li>
+            <li><a href="about.html"><i class="fa-solid fa-chevron-right"></i>About Us</a></li>
+            <li><a href="academics.html"><i class="fa-solid fa-chevron-right"></i>Academics</a></li>
+            <li><a href="admissions.html"><i class="fa-solid fa-chevron-right"></i>Admissions</a></li>
+            <li><a href="contact.html"><i class="fa-solid fa-chevron-right"></i>Contact</a></li>
+          </ul>
+        </div>
+        <!-- Academics -->
+        <div class="col-6 col-lg-2">
+          <h5>Academics</h5>
+          <ul class="footer-links">
+            <li><a href="academics.html"><i class="fa-solid fa-chevron-right"></i>O-Level (UCE)</a></li>
+            <li><a href="academics.html"><i class="fa-solid fa-chevron-right"></i>A-Level (UACE)</a></li>
+            <li><a href="academics.html"><i class="fa-solid fa-chevron-right"></i>Science &amp; Labs</a></li>
+            <li><a href="academics.html"><i class="fa-solid fa-chevron-right"></i>ICT &amp; Computing</a></li>
+            <li><a href="academics.html"><i class="fa-solid fa-chevron-right"></i>Co-curricular</a></li>
+          </ul>
+        </div>
+        <!-- Contact -->
+        <div class="col-lg-4">
+          <h5>Contact Us</h5>
+          <div class="footer-contact-item">
+            <i class="fa-solid fa-location-dot"></i>
+            <span>Plot 42, Kampala–Entebbe Road, Uganda</span>
+          </div>
+          <div class="footer-contact-item">
+            <i class="fa-solid fa-phone"></i>
+            <span>+256 700 123 456</span>
+          </div>
+          <div class="footer-contact-item">
+            <i class="fa-solid fa-envelope"></i>
+            <span>info@lighths.ac.ug</span>
+          </div>
+          <div class="footer-contact-item">
+            <i class="fa-regular fa-clock"></i>
+            <span>Mon – Fri: 7:30 AM – 5:00 PM</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container d-flex flex-column flex-md-row align-items-center justify-content-between gap-2">
+        <p class="mb-0">&copy; <span class="current-year"></span> Light High School, Uganda. All rights reserved.</p>
+        <p class="mb-0"><em>Lux et Scientia</em> — Light and Knowledge</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to Top -->
+  <button id="backToTop" aria-label="Back to top"><i class="fa-solid fa-chevron-up"></i></button>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- AOS -->
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>AOS.init({ once: true, duration: 700, offset: 60 });</script>
+  <!-- Custom JS -->
+  <script src="js/main.js"></script>
+</body>
 </html>
