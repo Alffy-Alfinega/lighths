@@ -6,7 +6,7 @@
   <meta name="description" content="Contact Light High School Uganda — get directions, send a message, or call our admissions and general enquiries lines." />
   <title>Contact Us | Light High School Uganda</title>
 
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏫</text></svg>" />
+  <link rel="icon" type="image/jpeg" href="images/logo.jpeg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
@@ -28,19 +28,51 @@
   <nav id="mainNav" class="navbar navbar-expand-lg fixed-top navbar-solid">
     <div class="container">
       <a class="navbar-brand" href="index.html">
-        <div class="brand-icon"><i class="fa-solid fa-lightbulb"></i></div>
-        Light <span>High School</span>
+        <img src="images/logo.jpeg" alt="Light High School Seguku" class="nav-logo" />
+        <span class="brand-name">Light High School<span class="brand-sub">Seguku</span></span>
       </a>
       <button class="navbar-toggler border-0 p-1" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+        <i class="fa-solid fa-bars"></i>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1">
           <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
-          <li class="nav-item"><a class="nav-link" href="academics.html">Academics</a></li>
-          <li class="nav-item"><a class="nav-link" href="admissions.html">Admissions</a></li>
-          <li class="nav-item"><a class="nav-link active" href="contact.html">Contact</a></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="about.html" role="button" data-bs-toggle="dropdown" aria-expanded="false">About</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="about.html"><i class="fa-solid fa-school me-2 text-primary-custom"></i>Our School</a></li>
+              <li><a class="dropdown-item" href="about.html"><i class="fa-solid fa-bullseye me-2 text-primary-custom"></i>Mission &amp; Vision</a></li>
+              <li><a class="dropdown-item" href="about.html"><i class="fa-solid fa-users me-2 text-primary-custom"></i>Leadership</a></li>
+              <li><a class="dropdown-item" href="about.html"><i class="fa-solid fa-building me-2 text-primary-custom"></i>Facilities</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="academics.html" role="button" data-bs-toggle="dropdown" aria-expanded="false">Academics</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="academics.html"><i class="fa-solid fa-book-open me-2 text-primary-custom"></i>Overview</a></li>
+              <li><a class="dropdown-item" href="academics.html"><i class="fa-solid fa-graduation-cap me-2 text-primary-custom"></i>O-Level (UCE)</a></li>
+              <li><a class="dropdown-item" href="academics.html"><i class="fa-solid fa-graduation-cap me-2 text-primary-custom"></i>A-Level (UACE)</a></li>
+              <li><a class="dropdown-item" href="academics.html"><i class="fa-solid fa-flask me-2 text-primary-custom"></i>Departments</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">School Life</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="news.html"><i class="fa-solid fa-newspaper me-2 text-primary-custom"></i>News &amp; Events</a></li>
+              <li><a class="dropdown-item" href="gallery.html"><i class="fa-solid fa-images me-2 text-primary-custom"></i>Gallery</a></li>
+              <li><a class="dropdown-item" href="student-life.html"><i class="fa-solid fa-heart me-2 text-primary-custom"></i>Student Life</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="admissions.html" role="button" data-bs-toggle="dropdown" aria-expanded="false">Admissions</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="admissions.html"><i class="fa-solid fa-file-alt me-2 text-primary-custom"></i>How to Apply</a></li>
+              <li><a class="dropdown-item" href="admissions.html"><i class="fa-solid fa-list-check me-2 text-primary-custom"></i>Requirements</a></li>
+              <li><a class="dropdown-item" href="admissions.html"><i class="fa-solid fa-money-bill me-2 text-primary-custom"></i>Fees Structure</a></li>
+              <li><hr class="dropdown-divider" /></li>
+              <li><a class="dropdown-item" href="contact.html"><i class="fa-solid fa-envelope me-2 text-primary-custom"></i>Contact Us</a></li>
+            </ul>
+          </li>
           <li class="nav-item ms-lg-2">
             <a class="nav-link nav-btn" href="admissions.html">Apply Now</a>
           </li>
@@ -322,10 +354,8 @@
       <div class="row g-5 pb-5">
         <div class="col-lg-4">
           <a href="index.html" class="navbar-brand mb-3 d-inline-flex text-white text-decoration-none" style="font-family:var(--ff-heading);">
-            <div class="brand-icon me-2" style="background:var(--clr-gold); color:#0f1f14; width:38px; height:38px; border-radius:50%; display:flex; align-items:center; justify-content:center;">
-              <i class="fa-solid fa-lightbulb"></i>
-            </div>
-            Light <span style="color:var(--clr-gold); margin-left:.3rem;">High School</span>
+            <img src="images/logo.jpeg" alt="Light High School Seguku" style="height:50px; width:auto; border-radius:50%;" class="me-2" />
+            Light High School<span style="color:var(--clr-gold); margin-left:.3rem;">Seguku</span>
           </a>
           <p style="font-size:.9rem; color:rgba(255,255,255,.65);" class="mb-4">Enlightening Minds, Shaping Futures. A centre of academic excellence in Uganda.</p>
           <div class="social-links">
@@ -346,12 +376,11 @@
           </ul>
         </div>
         <div class="col-6 col-lg-2">
-          <h5>Contact</h5>
+          <h5>Explore</h5>
           <ul class="footer-links">
-            <li><a href="contact.html"><i class="fa-solid fa-chevron-right"></i>Send a Message</a></li>
-            <li><a href="contact.html"><i class="fa-solid fa-chevron-right"></i>Directions</a></li>
-            <li><a href="contact.html"><i class="fa-solid fa-chevron-right"></i>Directory</a></li>
-            <li><a href="admissions.html"><i class="fa-solid fa-chevron-right"></i>Apply Online</a></li>
+            <li><a href="news.html"><i class="fa-solid fa-chevron-right"></i>News &amp; Events</a></li>
+            <li><a href="gallery.html"><i class="fa-solid fa-chevron-right"></i>Gallery</a></li>
+            <li><a href="student-life.html"><i class="fa-solid fa-chevron-right"></i>Student Life</a></li>
           </ul>
         </div>
         <div class="col-lg-4">
@@ -366,7 +395,7 @@
     <div class="footer-bottom">
       <div class="container d-flex flex-column flex-md-row align-items-center justify-content-between gap-2">
         <p class="mb-0">&copy; <span class="current-year"></span> Light High School, Uganda. All rights reserved.</p>
-        <p class="mb-0"><em>Lux et Scientia</em></p>
+        <p class="mb-0"><em>Creativity is the way Forward</em></p>
       </div>
     </div>
   </footer>

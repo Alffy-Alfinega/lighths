@@ -29,13 +29,20 @@
     onScroll(); // run on load
   }
 
-  /* ---------- Active nav link ---------- */
-  const navLinks = document.querySelectorAll('#mainNav .nav-link:not(.nav-btn)');
+  /* ---------- Active nav link (handles dropdowns) ---------- */
   const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-  navLinks.forEach(function (link) {
-    const href = link.getAttribute('href');
+
+  // Mark matching top-level nav-links and dropdown-items
+  document.querySelectorAll('#mainNav .nav-link:not(.nav-btn), #mainNav .dropdown-item').forEach(function (link) {
+    const href = (link.getAttribute('href') || '').split('#')[0]; // strip anchor
     if (href === currentPage || (currentPage === '' && href === 'index.html')) {
       link.classList.add('active');
+      // If this is inside a dropdown, also mark the parent toggle
+      const menu = link.closest('.dropdown-menu');
+      if (menu) {
+        const toggle = menu.previousElementSibling;
+        if (toggle) toggle.classList.add('active');
+      }
     }
   });
 
@@ -141,11 +148,13 @@
     });
   }
 
-  /* ---------- Mobile nav: close on link click ---------- */
+  /* ---------- Mobile nav: close on link click (skip dropdown toggles) ---------- */
   const navbarCollapse = document.getElementById('navbarNav');
   if (navbarCollapse) {
-    navbarCollapse.querySelectorAll('.nav-link').forEach(function (link) {
+    navbarCollapse.querySelectorAll('.nav-link, .dropdown-item').forEach(function (link) {
       link.addEventListener('click', function () {
+        // Don't collapse when tapping a dropdown toggle — that would cancel the dropdown open
+        if (this.classList.contains('dropdown-toggle')) return;
         const bsCollapse = bootstrap.Collapse.getInstance(navbarCollapse);
         if (bsCollapse) bsCollapse.hide();
       });

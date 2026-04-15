@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Latest news, events, and announcements from Light High School Uganda." />
+  <title>News &amp; Events | Light High School Uganda</title>
+
+  <link rel="icon" type="image/jpeg" href="images/logo.jpeg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet" />
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  <link href="css/style.css" rel="stylesheet" />
+  <style>
+    /* ---- News-page specific styles ---- */
+    .news-hero-card {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      background: var(--clr-dark);
+      min-height: 420px;
+      display: flex;
+      align-items: flex-end;
+    }
+    .news-hero-card img {
+      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .5;
+    }
+    .news-hero-card .content {
+      position: relative; z-index: 2; padding: 2.5rem;
+    }
+    .news-badge {
+      display: inline-block;
+      font-size: .72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      padding: .3rem .75rem;
+      border-radius: 20px;
+      background: var(--clr-gold);
+      color: #0f1f14;
+      margin-bottom: .75rem;
+    }
+    .news-card {
+      border-radius: 12px;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: 0 2px 16px rgba(0,0,0,.06);
+      transition: transform .25s, box-shadow .25s;
+      height: 100%;
+    }
+    .news-card:hover { transform: translateY(-4px); box-shadow: 0 8px 28px rgba(0,0,0,.12); }
+    .news-card img { width: 100%; height: 200px; object-fit: cover; }
+    .news-card-body { padding: 1.25rem; }
+    .news-meta { font-size: .78rem; color: #888; display: flex; align-items: center; gap: .75rem; margin-bottom: .5rem; }
+    .news-meta i { color: var(--clr-primary); }
+    .news-card-body h5 { font-family: var(--ff-heading); font-size: 1rem; font-weight: 700; line-height: 1.4; margin-bottom: .5rem; }
+    .news-card-body p { font-size: .88rem; color: #666; margin-bottom: .75rem; }
+    .read-more { font-size: .82rem; font-weight: 600; color: var(--clr-primary); text-decoration: none; }
+    .read-more:hover { color: var(--clr-gold); }
+    .read-more i { font-size: .7rem; transition: transform .2s; }
+    .read-more:hover i { transform: translateX(4px); }
+
+    /* Events */
+    .event-item {
+      display: flex; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid #eee;
+    }
+    .event-item:last-child { border-bottom: none; }
+    .event-date {
+      flex-shrink: 0; width: 54px; height: 60px; background: var(--clr-primary);
+      border-radius: 8px; display: flex; flex-direction: column; align-items: center;
+      justify-content: center; color: #fff;
+    }
+    .event-date .day { font-size: 1.4rem; font-weight: 800; line-height: 1; }
+    .event-date .mon { font-size: .65rem; text-transform: uppercase; letter-spacing: .05em; }
+    .event-info h6 { font-weight: 700; margin-bottom: .15rem; font-size: .95rem; }
+    .event-info p { font-size: .82rem; color: #888; margin: 0; }
+
+    /* Calendar table */
+    .cal-table { font-size: .88rem; }
+    .cal-table th { background: var(--clr-primary); color: #fff; text-align: center; }
+    .cal-table td { text-align: center; vertical-align: middle; }
+    .cal-table .today { background: var(--clr-gold-lt); font-weight: 700; color: var(--clr-primary-dk); border-radius: 50%; }
+    .cal-table .has-event { background: var(--clr-primary-lt); color: var(--clr-primary-dk); font-weight: 600; cursor: pointer; }
+
+    /* Category filter */
+    .filter-btns { display: flex; gap: .5rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .filter-btn {
+      border: 1.5px solid var(--clr-primary); color: var(--clr-primary); background: transparent;
+      padding: .35rem 1rem; border-radius: 20px; font-size: .82rem; font-weight: 600; cursor: pointer;
+      transition: all .2s;
+    }
+    .filter-btn.active, .filter-btn:hover { background: var(--clr-primary); color: #fff; }
+  </style>
+</head>
+<body>
+
+  <div id="preloader">
+    <div class="preloader-logo">
+      <div class="preloader-spinner"></div>
+      <p class="fw-semibold text-primary-custom mb-0">Light High School</p>
+    </div>
+  </div>
+
+  <!-- NAVBAR -->
+  <nav id="mainNav" class="navbar navbar-expand-lg fixed-top navbar-solid">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">
+        <img src="images/logo.jpeg" alt="Light High School Seguku" class="nav-logo" />
+        <span class="brand-name">Light High School<span class="brand-sub">Seguku</span></span>
+      </a>
+      <button class="navbar-toggler border-0 p-1" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-label="Toggle navigation">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="about.html" role="button" data-bs-toggle="dropdown" aria-expanded="false">About</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="about.html"><i class="fa-solid fa-school me-2 text-primary-custom"></i>Our School</a></li>
+              <li><a class="dropdown-item" href="about.html"><i class="fa-solid fa-bullseye me-2 text-primary-custom"></i>Mission &amp; Vision</a></li>
+              <li><a class="dropdown-item" href="about.html"><i class="fa-solid fa-users me-2 text-primary-custom"></i>Leadership</a></li>
+              <li><a class="dropdown-item" href="about.html"><i class="fa-solid fa-building me-2 text-primary-custom"></i>Facilities</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="academics.html" role="button" data-bs-toggle="dropdown" aria-expanded="false">Academics</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="academics.html"><i class="fa-solid fa-book-open me-2 text-primary-custom"></i>Overview</a></li>
+              <li><a class="dropdown-item" href="academics.html"><i class="fa-solid fa-graduation-cap me-2 text-primary-custom"></i>O-Level (UCE)</a></li>
+              <li><a class="dropdown-item" href="academics.html"><i class="fa-solid fa-graduation-cap me-2 text-primary-custom"></i>A-Level (UACE)</a></li>
+              <li><a class="dropdown-item" href="academics.html"><i class="fa-solid fa-flask me-2 text-primary-custom"></i>Departments</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">School Life</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="news.html"><i class="fa-solid fa-newspaper me-2 text-primary-custom"></i>News &amp; Events</a></li>
+              <li><a class="dropdown-item" href="gallery.html"><i class="fa-solid fa-images me-2 text-primary-custom"></i>Gallery</a></li>
+              <li><a class="dropdown-item" href="student-life.html"><i class="fa-solid fa-heart me-2 text-primary-custom"></i>Student Life</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="admissions.html" role="button" data-bs-toggle="dropdown" aria-expanded="false">Admissions</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="admissions.html"><i class="fa-solid fa-file-alt me-2 text-primary-custom"></i>How to Apply</a></li>
+              <li><a class="dropdown-item" href="admissions.html"><i class="fa-solid fa-list-check me-2 text-primary-custom"></i>Requirements</a></li>
+              <li><a class="dropdown-item" href="admissions.html"><i class="fa-solid fa-money-bill me-2 text-primary-custom"></i>Fees Structure</a></li>
+              <li><hr class="dropdown-divider" /></li>
+              <li><a class="dropdown-item" href="contact.html"><i class="fa-solid fa-envelope me-2 text-primary-custom"></i>Contact Us</a></li>
+            </ul>
+          </li>
+          <li class="nav-item ms-lg-2">
+            <a class="nav-link nav-btn" href="admissions.html">Apply Now</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="container">
+      <h1 data-aos="fade-up">News &amp; Events</h1>
+      <nav aria-label="breadcrumb" data-aos="fade-up" data-aos-delay="100">
+        <ol class="breadcrumb justify-content-center mb-0">
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item active">News &amp; Events</li>
+        </ol>
+      </nav>
+    </div>
+  </section>
+
+  <!-- ===================== FEATURED STORY ===================== -->
+  <section class="section-pad bg-light-custom">
+    <div class="container">
+      <div class="text-center mb-5" data-aos="fade-up">
+        <span class="section-label">Latest</span>
+        <h2 class="section-title">Featured <span>Story</span></h2>
+        <div class="divider divider-center"></div>
+      </div>
+      <div class="news-hero-card" data-aos="fade-up">
+        <img src="https://picsum.photos/seed/lighths-feat/1200/500" alt="Featured story" loading="lazy" />
+        <div class="content">
+          <span class="news-badge"><i class="fa-solid fa-star me-1"></i>Featured</span>
+          <h2 class="text-white fw-bold mb-2" style="font-family:var(--ff-heading); font-size:clamp(1.4rem,3vw,2rem);">
+            Light High School Students Shine at 2026 UACE — 94% Pass Rate Achieved
+          </h2>
+          <p style="color:rgba(255,255,255,.8); max-width:700px;" class="mb-3">
+            The Uganda National Examinations Board (UNEB) has released the 2025 Uganda Advanced Certificate of Education results,
+            and Light High School has once again demonstrated its commitment to academic excellence with an outstanding
+            94% pass rate — the best in the district for the third consecutive year.
+          </p>
+          <div class="d-flex align-items-center gap-3 flex-wrap">
+            <span style="color:rgba(255,255,255,.6); font-size:.82rem;"><i class="fa-solid fa-calendar me-1"></i> 14 April 2026</span>
+            <span style="color:rgba(255,255,255,.6); font-size:.82rem;"><i class="fa-solid fa-tag me-1"></i> Academics</span>
+            <a href="#" class="btn btn-sm" style="background:var(--clr-gold); color:#0f1f14; font-weight:700; border-radius:20px; padding:.35rem 1rem;">
+              Read Full Story <i class="fa-solid fa-arrow-right ms-1"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== NEWS GRID + SIDEBAR ===================== -->
+  <section class="section-pad bg-white">
+    <div class="container">
+      <div class="row g-5">
+
+        <!-- News Grid -->
+        <div class="col-lg-8">
+          <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-3">
+            <h3 class="fw-bold mb-0" style="font-family:var(--ff-heading);">Recent News</h3>
+            <div class="filter-btns">
+              <button class="filter-btn active">All</button>
+              <button class="filter-btn">Academics</button>
+              <button class="filter-btn">Sports</button>
+              <button class="filter-btn">Events</button>
+              <button class="filter-btn">Community</button>
+            </div>
+          </div>
+
+          <div class="row g-4">
+            <!-- Card 1 -->
+            <div class="col-md-6" data-aos="fade-up">
+              <div class="news-card">
+                <img src="https://picsum.photos/seed/lighths-n1/600/300" alt="UCE Results" loading="lazy" />
+                <div class="news-card-body">
+                  <div class="news-meta">
+                    <span><i class="fa-solid fa-calendar"></i> 3 April 2026</span>
+                    <span><i class="fa-solid fa-tag"></i> Academics</span>
+                  </div>
+                  <h5>97% UCE Pass Rate — Best Ever Performance</h5>
+                  <p>S.4 students recorded a historic 97% pass rate in the 2025 UCE examinations, with 42 students attaining Division 1.</p>
+                  <a href="#" class="read-more">Read More <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="col-md-6" data-aos="fade-up" data-aos-delay="80">
+              <div class="news-card">
+                <img src="https://picsum.photos/seed/lighths-n2/600/300" alt="Sports Day" loading="lazy" />
+                <div class="news-card-body">
+                  <div class="news-meta">
+                    <span><i class="fa-solid fa-calendar"></i> 28 March 2026</span>
+                    <span><i class="fa-solid fa-tag"></i> Sports</span>
+                  </div>
+                  <h5>Annual Sports Day 2026 Draws Record Crowds</h5>
+                  <p>The annual inter-house sports competition drew parents and well-wishers in record numbers as students competed across 18 disciplines.</p>
+                  <a href="#" class="read-more">Read More <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="col-md-6" data-aos="fade-up">
+              <div class="news-card">
+                <img src="https://picsum.photos/seed/lighths-n3/600/300" alt="New ICT Lab" loading="lazy" />
+                <div class="news-card-body">
+                  <div class="news-meta">
+                    <span><i class="fa-solid fa-calendar"></i> 15 March 2026</span>
+                    <span><i class="fa-solid fa-tag"></i> Infrastructure</span>
+                  </div>
+                  <h5>New 60-Station ICT Laboratory Commissioned</h5>
+                  <p>Light High School officially opened its newly expanded computer lab, equipped with fibre internet and modern workstations for every student.</p>
+                  <a href="#" class="read-more">Read More <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="col-md-6" data-aos="fade-up" data-aos-delay="80">
+              <div class="news-card">
+                <img src="https://picsum.photos/seed/lighths-n4/600/300" alt="Drama Festival" loading="lazy" />
+                <div class="news-card-body">
+                  <div class="news-meta">
+                    <span><i class="fa-solid fa-calendar"></i> 1 March 2026</span>
+                    <span><i class="fa-solid fa-tag"></i> Events</span>
+                  </div>
+                  <h5>Drama Club Wins Regional Festival Gold Award</h5>
+                  <p>The school's drama club staged an award-winning performance at the District Drama Festival, earning a coveted gold award and qualification for nationals.</p>
+                  <a href="#" class="read-more">Read More <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 5 -->
+            <div class="col-md-6" data-aos="fade-up">
+              <div class="news-card">
+                <img src="https://picsum.photos/seed/lighths-n5/600/300" alt="Community Outreach" loading="lazy" />
+                <div class="news-card-body">
+                  <div class="news-meta">
+                    <span><i class="fa-solid fa-calendar"></i> 20 Feb 2026</span>
+                    <span><i class="fa-solid fa-tag"></i> Community</span>
+                  </div>
+                  <h5>Students Plant 500 Trees in Community Outreach Drive</h5>
+                  <p>S.3 and S.4 students partnered with local communities in a tree-planting initiative that contributed 500 trees to the National Greening Campaign.</p>
+                  <a href="#" class="read-more">Read More <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 6 -->
+            <div class="col-md-6" data-aos="fade-up" data-aos-delay="80">
+              <div class="news-card">
+                <img src="https://picsum.photos/seed/lighths-n6/600/300" alt="Science Fair" loading="lazy" />
+                <div class="news-card-body">
+                  <div class="news-meta">
+                    <span><i class="fa-solid fa-calendar"></i> 8 Feb 2026</span>
+                    <span><i class="fa-solid fa-tag"></i> Academics</span>
+                  </div>
+                  <h5>Students Win 3 Prizes at National Science &amp; Innovation Fair</h5>
+                  <p>Three student projects — in renewable energy, agriculture tech, and healthcare — earned top prizes at the Uganda National Science Fair 2026.</p>
+                  <a href="#" class="read-more">Read More <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+              </div>
+            </div>
+          </div><!-- /row -->
+
+          <!-- Pagination -->
+          <nav class="mt-5" aria-label="News pagination" data-aos="fade-up">
+            <ul class="pagination justify-content-center">
+              <li class="page-item disabled"><a class="page-link" href="#">&laquo;</a></li>
+              <li class="page-item active"><a class="page-link" href="#">1</a></li>
+              <li class="page-item"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+            </ul>
+          </nav>
+        </div><!-- /col-lg-8 -->
+
+        <!-- Sidebar -->
+        <div class="col-lg-4">
+
+          <!-- Upcoming Events -->
+          <div class="card border-0 shadow-sm rounded-3 mb-4" data-aos="fade-left">
+            <div class="card-body p-4">
+              <h5 class="fw-bold mb-3" style="font-family:var(--ff-heading);">
+                <i class="fa-solid fa-calendar-days me-2" style="color:var(--clr-primary);"></i>Upcoming Events
+              </h5>
+              <div class="event-item">
+                <div class="event-date"><span class="day">22</span><span class="mon">Apr</span></div>
+                <div class="event-info">
+                  <h6>Term 2 Opening Day</h6>
+                  <p><i class="fa-solid fa-clock me-1"></i>7:00 AM &nbsp;|&nbsp; <i class="fa-solid fa-location-dot me-1"></i>School Compound</p>
+                </div>
+              </div>
+              <div class="event-item">
+                <div class="event-date" style="background:var(--clr-gold); color:#0f1f14;"><span class="day">30</span><span class="mon">Apr</span></div>
+                <div class="event-info">
+                  <h6>Parent–Teacher Conference</h6>
+                  <p><i class="fa-solid fa-clock me-1"></i>9:00 AM &nbsp;|&nbsp; <i class="fa-solid fa-location-dot me-1"></i>Main Hall</p>
+                </div>
+              </div>
+              <div class="event-item">
+                <div class="event-date"><span class="day">10</span><span class="mon">May</span></div>
+                <div class="event-info">
+                  <h6>Inter-School Debate Competition</h6>
+                  <p><i class="fa-solid fa-clock me-1"></i>10:00 AM &nbsp;|&nbsp; <i class="fa-solid fa-location-dot me-1"></i>Assembly Hall</p>
+                </div>
+              </div>
+              <div class="event-item">
+                <div class="event-date"><span class="day">24</span><span class="mon">May</span></div>
+                <div class="event-info">
+                  <h6>Mid-Term Examinations Begin</h6>
+                  <p><i class="fa-solid fa-clock me-1"></i>8:00 AM &nbsp;|&nbsp; <i class="fa-solid fa-location-dot me-1"></i>All Classes</p>
+                </div>
+              </div>
+              <div class="event-item">
+                <div class="event-date" style="background:#6c757d;"><span class="day">6</span><span class="mon">Jun</span></div>
+                <div class="event-info">
+                  <h6>Cultural Day &amp; Talent Show</h6>
+                  <p><i class="fa-solid fa-clock me-1"></i>All Day &nbsp;|&nbsp; <i class="fa-solid fa-location-dot me-1"></i>School Grounds</p>
+                </div>
+              </div>
+            </div>
+          </div><!-- /events card -->
+
+          <!-- Announcements -->
+          <div class="card border-0 shadow-sm rounded-3 mb-4" data-aos="fade-left" data-aos-delay="100">
+            <div class="card-body p-4">
+              <h5 class="fw-bold mb-3" style="font-family:var(--ff-heading);">
+                <i class="fa-solid fa-bullhorn me-2" style="color:var(--clr-gold);"></i>Announcements
+              </h5>
+              <ul class="list-unstyled mb-0" style="font-size:.9rem;">
+                <li class="d-flex gap-2 mb-3">
+                  <i class="fa-solid fa-circle-info mt-1 flex-shrink-0" style="color:var(--clr-primary);"></i>
+                  <span>Term 2 school fees must be paid in full by <strong>25 April 2026</strong>. Late payment incurs a UGX 50,000 penalty.</span>
+                </li>
+                <li class="d-flex gap-2 mb-3">
+                  <i class="fa-solid fa-circle-info mt-1 flex-shrink-0" style="color:var(--clr-primary);"></i>
+                  <span>S.6 mock exams are scheduled for <strong>11–18 June 2026</strong>. Timetable available at the school office.</span>
+                </li>
+                <li class="d-flex gap-2 mb-3">
+                  <i class="fa-solid fa-circle-info mt-1 flex-shrink-0" style="color:var(--clr-primary);"></i>
+                  <span>New S.1 applications for 2027 intake open on <strong>1 September 2026</strong>.</span>
+                </li>
+                <li class="d-flex gap-2">
+                  <i class="fa-solid fa-circle-info mt-1 flex-shrink-0" style="color:var(--clr-primary);"></i>
+                  <span>Uniforms from approved suppliers only — <strong>Kampala Central Market, Stall 14</strong>.</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Newsletter Signup -->
+          <div class="card border-0 rounded-3" style="background:var(--clr-primary); color:#fff;" data-aos="fade-left" data-aos-delay="200">
+            <div class="card-body p-4">
+              <h5 class="fw-bold mb-2" style="font-family:var(--ff-heading);">Stay Informed</h5>
+              <p style="font-size:.88rem; color:rgba(255,255,255,.8);" class="mb-3">Subscribe to our newsletter for news, events, and important announcements delivered to your inbox.</p>
+              <div class="input-group">
+                <input type="email" class="form-control" placeholder="Your email address" />
+                <button class="btn" style="background:var(--clr-gold); color:#0f1f14; font-weight:700;">Subscribe</button>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /sidebar -->
+      </div><!-- /row -->
+    </div>
+  </section>
+
+  <!-- ===================== SCHOOL TERM CALENDAR ===================== -->
+  <section class="section-pad bg-light-custom">
+    <div class="container">
+      <div class="text-center mb-5" data-aos="fade-up">
+        <span class="section-label">2026 Academic Year</span>
+        <h2 class="section-title">School <span>Term Calendar</span></h2>
+        <div class="divider divider-center"></div>
+      </div>
+      <div class="row g-4 justify-content-center">
+        <div class="col-md-4" data-aos="fade-up">
+          <div class="card border-0 shadow-sm h-100">
+            <div class="card-header py-3" style="background:var(--clr-primary); color:#fff;">
+              <h5 class="mb-0 fw-bold"><i class="fa-solid fa-sun me-2"></i>Term 1</h5>
+            </div>
+            <div class="card-body">
+              <ul class="list-unstyled mb-0" style="font-size:.9rem;">
+                <li class="d-flex justify-content-between py-2 border-bottom"><span>Opening Day</span><strong>6 Feb 2026</strong></li>
+                <li class="d-flex justify-content-between py-2 border-bottom"><span>Mid-Term Break</span><strong>13–17 Mar 2026</strong></li>
+                <li class="d-flex justify-content-between py-2 border-bottom"><span>Sports Day</span><strong>28 Mar 2026</strong></li>
+                <li class="d-flex justify-content-between py-2 border-bottom"><span>End of Term Exams</span><strong>6–11 Apr 2026</strong></li>
+                <li class="d-flex justify-content-between py-2"><span>Closing Day</span><strong>17 Apr 2026</strong></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="80">
+          <div class="card border-0 shadow-sm h-100">
+            <div class="card-header py-3" style="background:var(--clr-gold); color:#0f1f14;">
+              <h5 class="mb-0 fw-bold"><i class="fa-solid fa-cloud-sun me-2"></i>Term 2 <span class="badge ms-2" style="background:#0f1f14; color:#fff; font-size:.7rem;">CURRENT</span></h5>
+            </div>
+            <div class="card-body">
+              <ul class="list-unstyled mb-0" style="font-size:.9rem;">
+                <li class="d-flex justify-content-between py-2 border-bottom"><span>Opening Day</span><strong>22 Apr 2026</strong></li>
+                <li class="d-flex justify-content-between py-2 border-bottom"><span>P/T Conference</span><strong>30 Apr 2026</strong></li>
+                <li class="d-flex justify-content-between py-2 border-bottom"><span>Mid-Term Exams</span><strong>24–28 May 2026</strong></li>
+                <li class="d-flex justify-content-between py-2 border-bottom"><span>Cultural Day</span><strong>6 Jun 2026</strong></li>
+                <li class="d-flex justify-content-between py-2 border-bottom"><span>End of Term Exams</span><strong>4–9 Jul 2026</strong></li>
+                <li class="d-flex justify-content-between py-2"><span>Closing Day</span><strong>17 Jul 2026</strong></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="160">
+          <div class="card border-0 shadow-sm h-100">
+            <div class="card-header py-3" style="background:#6c757d; color:#fff;">
+              <h5 class="mb-0 fw-bold"><i class="fa-solid fa-snowflake me-2"></i>Term 3</h5>
+            </div>
+            <div class="card-body">
+              <ul class="list-unstyled mb-0" style="font-size:.9rem;">
+                <li class="d-flex justify-content-between py-2 border-bottom"><span>Opening Day</span><strong>28 Aug 2026</strong></li>
+                <li class="d-flex justify-content-between py-2 border-bottom"><span>Graduation Rehearsal</span><strong>15 Sep 2026</strong></li>
+                <li class="d-flex justify-content-between py-2 border-bottom"><span>UACE / UCE Exams Begin</span><strong>1 Oct 2026</strong></li>
+                <li class="d-flex justify-content-between py-2 border-bottom"><span>Prize Giving Day</span><strong>22 Oct 2026</strong></li>
+                <li class="d-flex justify-content-between py-2"><span>Closing Day</span><strong>30 Oct 2026</strong></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-banner">
+    <div class="container">
+      <div class="row align-items-center g-4">
+        <div class="col-lg-8" data-aos="fade-right">
+          <h2 class="text-white fw-bold mb-2" style="font-family:var(--ff-heading); font-size:clamp(1.5rem,3vw,2rem);">
+            Ready to Be Part of Our Story?
+          </h2>
+          <p style="color:rgba(255,255,255,.8); margin:0;">
+            Applications for S.1 and S.5 are open. Join a community that celebrates every achievement.
+          </p>
+        </div>
+        <div class="col-lg-4 text-lg-end" data-aos="fade-left">
+          <a href="admissions.html" class="btn-gold">
+            <i class="fa-solid fa-pen-to-square"></i> Apply Now
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer pt-5 pb-0">
+    <div class="container">
+      <div class="row g-5 pb-5">
+        <div class="col-lg-4">
+          <a href="index.html" class="navbar-brand mb-3 d-inline-flex text-white text-decoration-none" style="font-family:var(--ff-heading);">
+            <img src="images/logo.jpeg" alt="Light High School Seguku" style="height:50px; width:auto; border-radius:50%;" class="me-2" />
+            Light High School<span style="color:var(--clr-gold); margin-left:.3rem;">Seguku</span>
+          </a>
+          <p style="font-size:.9rem; color:rgba(255,255,255,.65);" class="mb-4">
+            Enlightening Minds, Shaping Futures. A centre of academic excellence in Uganda.
+          </p>
+          <div class="social-links">
+            <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
+          </div>
+        </div>
+        <div class="col-6 col-lg-2">
+          <h5>Quick Links</h5>
+          <ul class="footer-links">
+            <li><a href="index.html"><i class="fa-solid fa-chevron-right"></i>Home</a></li>
+            <li><a href="about.html"><i class="fa-solid fa-chevron-right"></i>About Us</a></li>
+            <li><a href="academics.html"><i class="fa-solid fa-chevron-right"></i>Academics</a></li>
+            <li><a href="admissions.html"><i class="fa-solid fa-chevron-right"></i>Admissions</a></li>
+            <li><a href="contact.html"><i class="fa-solid fa-chevron-right"></i>Contact</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-lg-2">
+          <h5>Explore</h5>
+          <ul class="footer-links">
+            <li><a href="news.html"><i class="fa-solid fa-chevron-right"></i>News &amp; Events</a></li>
+            <li><a href="gallery.html"><i class="fa-solid fa-chevron-right"></i>Gallery</a></li>
+            <li><a href="student-life.html"><i class="fa-solid fa-chevron-right"></i>Student Life</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-4">
+          <h5>Contact Us</h5>
+          <div class="footer-contact-item"><i class="fa-solid fa-location-dot"></i><span>Plot 42, Kampala–Entebbe Road, Uganda</span></div>
+          <div class="footer-contact-item"><i class="fa-solid fa-phone"></i><span>+256 700 123 456</span></div>
+          <div class="footer-contact-item"><i class="fa-solid fa-envelope"></i><span>info@lighths.ac.ug</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container d-flex flex-column flex-md-row align-items-center justify-content-between gap-2">
+        <p class="mb-0">&copy; <span class="current-year"></span> Light High School, Uganda. All rights reserved.</p>
+        <p class="mb-0"><em>Creativity is the way Forward</em></p>
+      </div>
+    </div>
+  </footer>
+
+  <button id="backToTop" aria-label="Back to top"><i class="fa-solid fa-chevron-up"></i></button>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>AOS.init({ once: true, duration: 700, offset: 60 });</script>
+  <script src="js/main.js"></script>
+  <script>
+    // Filter buttons (client-side category filter)
+    document.querySelectorAll('.filter-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        // In a real site this would filter cards; here it's a visual demo
+      });
+    });
+  </script>
+</body>
+</html>

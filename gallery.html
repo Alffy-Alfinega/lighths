@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Photo gallery of Light High School Uganda — campus life, academics, sports, events, and facilities." />
+  <title>Gallery | Light High School Uganda</title>
+
+  <link rel="icon" type="image/jpeg" href="images/logo.jpeg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet" />
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  <!-- GLightbox for lightbox functionality -->
+  <link href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" rel="stylesheet" />
+  <link href="css/style.css" rel="stylesheet" />
+  <style>
+    /* ---- Gallery-page specific styles ---- */
+    .filter-bar {
+      display: flex; flex-wrap: wrap; gap: .5rem; justify-content: center;
+      margin-bottom: 2.5rem;
+    }
+    .filter-pill {
+      border: 1.5px solid var(--clr-primary); color: var(--clr-primary);
+      background: transparent; padding: .4rem 1.1rem; border-radius: 25px;
+      font-size: .83rem; font-weight: 600; cursor: pointer; transition: all .2s;
+    }
+    .filter-pill.active, .filter-pill:hover {
+      background: var(--clr-primary); color: #fff;
+    }
+
+    /* Masonry-like grid item */
+    .gallery-item {
+      position: relative; overflow: hidden; border-radius: 10px;
+      cursor: pointer; display: block;
+    }
+    .gallery-item img {
+      width: 100%; height: 240px; object-fit: cover;
+      transition: transform .4s ease;
+    }
+    .gallery-item.tall img { height: 340px; }
+    .gallery-item:hover img { transform: scale(1.06); }
+    .gallery-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(15,31,20,.75) 0%, transparent 60%);
+      opacity: 0; transition: opacity .3s;
+      display: flex; align-items: flex-end; padding: 1rem;
+    }
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+    .gallery-overlay-content { color: #fff; }
+    .gallery-overlay-content span {
+      display: inline-block; font-size: .72rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .07em;
+      background: var(--clr-gold); color: #0f1f14;
+      padding: .2rem .6rem; border-radius: 12px; margin-bottom: .35rem;
+    }
+    .gallery-overlay-content p { font-size: .88rem; margin: 0; line-height: 1.3; }
+    .gallery-zoom-icon {
+      position: absolute; top: .75rem; right: .75rem;
+      width: 36px; height: 36px; background: rgba(255,255,255,.15);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: .85rem; opacity: 0; transition: opacity .3s;
+      backdrop-filter: blur(4px);
+    }
+    .gallery-item:hover .gallery-zoom-icon { opacity: 1; }
+
+    /* Stats strip */
+    .gallery-stats { background: var(--clr-primary-lt); border-radius: 12px; padding: 1.5rem 2rem; }
+    .gallery-stats-item { text-align: center; }
+    .gallery-stats-item .num { font-size: 2rem; font-weight: 800; color: var(--clr-primary); font-family: var(--ff-heading); }
+    .gallery-stats-item .lbl { font-size: .82rem; color: #555; }
+
+    /* Video section */
+    .video-card {
+      border-radius: 12px; overflow: hidden; position: relative;
+      background: #000; cursor: pointer;
+    }
+    .video-card img { width: 100%; height: 220px; object-fit: cover; opacity: .7; transition: opacity .3s; }
+    .video-card:hover img { opacity: .5; }
+    .video-play {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      width: 56px; height: 56px; background: var(--clr-gold);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      color: #0f1f14; font-size: 1.2rem; transition: transform .2s;
+    }
+    .video-card:hover .video-play { transform: translate(-50%, -50%) scale(1.1); }
+    .video-card-caption { padding: 1rem; background: #fff; }
+    .video-card-caption h6 { font-weight: 700; margin-bottom: .2rem; font-size: .95rem; }
+    .video-card-caption p { font-size: .82rem; color: #888; margin: 0; }
+  </style>
+</head>
+<body>
+
+  <div id="preloader">
+    <div class="preloader-logo">
+      <div class="preloader-spinner"></div>
+      <p class="fw-semibold text-primary-custom mb-0">Light High School</p>
+    </div>
+  </div>
+
+  <!-- NAVBAR -->
+  <nav id="mainNav" class="navbar navbar-expand-lg fixed-top navbar-solid">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">
+        <img src="images/logo.jpeg" alt="Light High School Seguku" class="nav-logo" />
+        <span class="brand-name">Light High School<span class="brand-sub">Seguku</span></span>
+      </a>
+      <button class="navbar-toggler border-0 p-1" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-label="Toggle navigation">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="about.html" role="button" data-bs-toggle="dropdown" aria-expanded="false">About</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="about.html"><i class="fa-solid fa-school me-2 text-primary-custom"></i>Our School</a></li>
+              <li><a class="dropdown-item" href="about.html"><i class="fa-solid fa-bullseye me-2 text-primary-custom"></i>Mission &amp; Vision</a></li>
+              <li><a class="dropdown-item" href="about.html"><i class="fa-solid fa-users me-2 text-primary-custom"></i>Leadership</a></li>
+              <li><a class="dropdown-item" href="about.html"><i class="fa-solid fa-building me-2 text-primary-custom"></i>Facilities</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="academics.html" role="button" data-bs-toggle="dropdown" aria-expanded="false">Academics</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="academics.html"><i class="fa-solid fa-book-open me-2 text-primary-custom"></i>Overview</a></li>
+              <li><a class="dropdown-item" href="academics.html"><i class="fa-solid fa-graduation-cap me-2 text-primary-custom"></i>O-Level (UCE)</a></li>
+              <li><a class="dropdown-item" href="academics.html"><i class="fa-solid fa-graduation-cap me-2 text-primary-custom"></i>A-Level (UACE)</a></li>
+              <li><a class="dropdown-item" href="academics.html"><i class="fa-solid fa-flask me-2 text-primary-custom"></i>Departments</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">School Life</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="news.html"><i class="fa-solid fa-newspaper me-2 text-primary-custom"></i>News &amp; Events</a></li>
+              <li><a class="dropdown-item" href="gallery.html"><i class="fa-solid fa-images me-2 text-primary-custom"></i>Gallery</a></li>
+              <li><a class="dropdown-item" href="student-life.html"><i class="fa-solid fa-heart me-2 text-primary-custom"></i>Student Life</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="admissions.html" role="button" data-bs-toggle="dropdown" aria-expanded="false">Admissions</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="admissions.html"><i class="fa-solid fa-file-alt me-2 text-primary-custom"></i>How to Apply</a></li>
+              <li><a class="dropdown-item" href="admissions.html"><i class="fa-solid fa-list-check me-2 text-primary-custom"></i>Requirements</a></li>
+              <li><a class="dropdown-item" href="admissions.html"><i class="fa-solid fa-money-bill me-2 text-primary-custom"></i>Fees Structure</a></li>
+              <li><hr class="dropdown-divider" /></li>
+              <li><a class="dropdown-item" href="contact.html"><i class="fa-solid fa-envelope me-2 text-primary-custom"></i>Contact Us</a></li>
+            </ul>
+          </li>
+          <li class="nav-item ms-lg-2">
+            <a class="nav-link nav-btn" href="admissions.html">Apply Now</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="container">
+      <h1 data-aos="fade-up">Photo Gallery</h1>
+      <nav aria-label="breadcrumb" data-aos="fade-up" data-aos-delay="100">
+        <ol class="breadcrumb justify-content-center mb-0">
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item active">Gallery</li>
+        </ol>
+      </nav>
+    </div>
+  </section>
+
+  <!-- ===================== GALLERY STATS ===================== -->
+  <section class="py-4 bg-white">
+    <div class="container">
+      <div class="gallery-stats" data-aos="fade-up">
+        <div class="row g-3 text-center">
+          <div class="col-6 col-md-3 gallery-stats-item">
+            <div class="num">500+</div>
+            <div class="lbl">Photos Archived</div>
+          </div>
+          <div class="col-6 col-md-3 gallery-stats-item">
+            <div class="num">12</div>
+            <div class="lbl">Albums</div>
+          </div>
+          <div class="col-6 col-md-3 gallery-stats-item">
+            <div class="num">25+</div>
+            <div class="lbl">Years of Memories</div>
+          </div>
+          <div class="col-6 col-md-3 gallery-stats-item">
+            <div class="num">8</div>
+            <div class="lbl">Video Highlights</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== PHOTO GRID ===================== -->
+  <section class="section-pad bg-light-custom">
+    <div class="container">
+      <div class="text-center mb-5" data-aos="fade-up">
+        <span class="section-label">Our School in Pictures</span>
+        <h2 class="section-title">Browse the <span>Gallery</span></h2>
+        <div class="divider divider-center"></div>
+      </div>
+
+      <!-- Filter -->
+      <div class="filter-bar" data-aos="fade-up">
+        <button class="filter-pill active" data-filter="all">All Photos</button>
+        <button class="filter-pill" data-filter="academics">Academics</button>
+        <button class="filter-pill" data-filter="sports">Sports</button>
+        <button class="filter-pill" data-filter="events">Events</button>
+        <button class="filter-pill" data-filter="facilities">Facilities</button>
+        <button class="filter-pill" data-filter="community">Community</button>
+      </div>
+
+      <!-- Grid -->
+      <div class="row g-3" id="galleryGrid">
+
+        <div class="col-6 col-md-4 col-lg-3 gallery-col" data-cat="academics" data-aos="fade-up">
+          <a href="https://picsum.photos/seed/lg1/900/600" class="gallery-item glightbox" data-gallery="main" data-title="Science Laboratory Session">
+            <img src="https://picsum.photos/seed/lg1/600/400" alt="Science lab" loading="lazy" />
+            <div class="gallery-overlay">
+              <div class="gallery-overlay-content">
+                <span>Academics</span>
+                <p>Science Laboratory Session</p>
+              </div>
+            </div>
+            <div class="gallery-zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+          </a>
+        </div>
+
+        <div class="col-6 col-md-4 col-lg-3 gallery-col" data-cat="sports" data-aos="fade-up" data-aos-delay="60">
+          <a href="https://picsum.photos/seed/lg2/900/600" class="gallery-item tall glightbox" data-gallery="main" data-title="Inter-House Athletics 2026">
+            <img src="https://picsum.photos/seed/lg2/600/500" alt="Athletics" loading="lazy" />
+            <div class="gallery-overlay">
+              <div class="gallery-overlay-content">
+                <span>Sports</span>
+                <p>Inter-House Athletics 2026</p>
+              </div>
+            </div>
+            <div class="gallery-zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+          </a>
+        </div>
+
+        <div class="col-6 col-md-4 col-lg-3 gallery-col" data-cat="events" data-aos="fade-up" data-aos-delay="120">
+          <a href="https://picsum.photos/seed/lg3/900/600" class="gallery-item glightbox" data-gallery="main" data-title="Prize Giving Ceremony 2025">
+            <img src="https://picsum.photos/seed/lg3/600/400" alt="Prize giving" loading="lazy" />
+            <div class="gallery-overlay">
+              <div class="gallery-overlay-content">
+                <span>Events</span>
+                <p>Prize Giving Ceremony 2025</p>
+              </div>
+            </div>
+            <div class="gallery-zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+          </a>
+        </div>
+
+        <div class="col-6 col-md-4 col-lg-3 gallery-col" data-cat="facilities" data-aos="fade-up" data-aos-delay="180">
+          <a href="https://picsum.photos/seed/lg4/900/600" class="gallery-item glightbox" data-gallery="main" data-title="ICT Computer Laboratory">
+            <img src="https://picsum.photos/seed/lg4/600/400" alt="ICT Lab" loading="lazy" />
+            <div class="gallery-overlay">
+              <div class="gallery-overlay-content">
+                <span>Facilities</span>
+                <p>ICT Computer Laboratory</p>
+              </div>
+            </div>
+            <div class="gallery-zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+          </a>
+        </div>
+
+        <div class="col-6 col-md-4 col-lg-3 gallery-col" data-cat="community" data-aos="fade-up">
+          <a href="https://picsum.photos/seed/lg5/900/600" class="gallery-item tall glightbox" data-gallery="main" data-title="Tree Planting Drive 2026">
+            <img src="https://picsum.photos/seed/lg5/600/500" alt="Tree planting" loading="lazy" />
+            <div class="gallery-overlay">
+              <div class="gallery-overlay-content">
+                <span>Community</span>
+                <p>Tree Planting Drive 2026</p>
+              </div>
+            </div>
+            <div class="gallery-zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+          </a>
+        </div>
+
+        <div class="col-6 col-md-4 col-lg-3 gallery-col" data-cat="academics" data-aos="fade-up" data-aos-delay="60">
+          <a href="https://picsum.photos/seed/lg6/900/600" class="gallery-item glightbox" data-gallery="main" data-title="Library Study Session">
+            <img src="https://picsum.photos/seed/lg6/600/400" alt="Library" loading="lazy" />
+            <div class="gallery-overlay">
+              <div class="gallery-overlay-content">
+                <span>Academics</span>
+                <p>Library Study Session</p>
+              </div>
+            </div>
+            <div class="gallery-zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+          </a>
+        </div>
+
+        <div class="col-6 col-md-4 col-lg-3 gallery-col" data-cat="sports" data-aos="fade-up" data-aos-delay="120">
+          <a href="https://picsum.photos/seed/lg7/900/600" class="gallery-item glightbox" data-gallery="main" data-title="Football Championship Match">
+            <img src="https://picsum.photos/seed/lg7/600/400" alt="Football" loading="lazy" />
+            <div class="gallery-overlay">
+              <div class="gallery-overlay-content">
+                <span>Sports</span>
+                <p>Football Championship Match</p>
+              </div>
+            </div>
+            <div class="gallery-zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+          </a>
+        </div>
+
+        <div class="col-6 col-md-4 col-lg-3 gallery-col" data-cat="events" data-aos="fade-up" data-aos-delay="180">
+          <a href="https://picsum.photos/seed/lg8/900/600" class="gallery-item glightbox" data-gallery="main" data-title="Cultural Day Performances">
+            <img src="https://picsum.photos/seed/lg8/600/400" alt="Cultural day" loading="lazy" />
+            <div class="gallery-overlay">
+              <div class="gallery-overlay-content">
+                <span>Events</span>
+                <p>Cultural Day Performances</p>
+              </div>
+            </div>
+            <div class="gallery-zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+          </a>
+        </div>
+
+        <div class="col-6 col-md-4 col-lg-3 gallery-col" data-cat="facilities" data-aos="fade-up">
+          <a href="https://picsum.photos/seed/lg9/900/600" class="gallery-item glightbox" data-gallery="main" data-title="School Dining Hall">
+            <img src="https://picsum.photos/seed/lg9/600/400" alt="Dining Hall" loading="lazy" />
+            <div class="gallery-overlay">
+              <div class="gallery-overlay-content">
+                <span>Facilities</span>
+                <p>School Dining Hall</p>
+              </div>
+            </div>
+            <div class="gallery-zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+          </a>
+        </div>
+
+        <div class="col-6 col-md-4 col-lg-3 gallery-col" data-cat="academics" data-aos="fade-up" data-aos-delay="60">
+          <a href="https://picsum.photos/seed/lg10/900/600" class="gallery-item tall glightbox" data-gallery="main" data-title="National Science Fair 2026">
+            <img src="https://picsum.photos/seed/lg10/600/500" alt="Science fair" loading="lazy" />
+            <div class="gallery-overlay">
+              <div class="gallery-overlay-content">
+                <span>Academics</span>
+                <p>National Science Fair 2026</p>
+              </div>
+            </div>
+            <div class="gallery-zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+          </a>
+        </div>
+
+        <div class="col-6 col-md-4 col-lg-3 gallery-col" data-cat="community" data-aos="fade-up" data-aos-delay="120">
+          <a href="https://picsum.photos/seed/lg11/900/600" class="gallery-item glightbox" data-gallery="main" data-title="Community Outreach Program">
+            <img src="https://picsum.photos/seed/lg11/600/400" alt="Community outreach" loading="lazy" />
+            <div class="gallery-overlay">
+              <div class="gallery-overlay-content">
+                <span>Community</span>
+                <p>Community Outreach Program</p>
+              </div>
+            </div>
+            <div class="gallery-zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+          </a>
+        </div>
+
+        <div class="col-6 col-md-4 col-lg-3 gallery-col" data-cat="events" data-aos="fade-up" data-aos-delay="180">
+          <a href="https://picsum.photos/seed/lg12/900/600" class="gallery-item glightbox" data-gallery="main" data-title="Parents Open Day 2026">
+            <img src="https://picsum.photos/seed/lg12/600/400" alt="Open day" loading="lazy" />
+            <div class="gallery-overlay">
+              <div class="gallery-overlay-content">
+                <span>Events</span>
+                <p>Parents Open Day 2026</p>
+              </div>
+            </div>
+            <div class="gallery-zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+          </a>
+        </div>
+
+      </div><!-- /gallery grid -->
+
+      <!-- Load more -->
+      <div class="text-center mt-5" data-aos="fade-up">
+        <button class="btn btn-outline-primary px-4 py-2 rounded-pill fw-semibold" id="loadMoreBtn">
+          <i class="fa-solid fa-images me-2"></i>Load More Photos
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== VIDEO HIGHLIGHTS ===================== -->
+  <section class="section-pad bg-white">
+    <div class="container">
+      <div class="text-center mb-5" data-aos="fade-up">
+        <span class="section-label">Watch</span>
+        <h2 class="section-title">Video <span>Highlights</span></h2>
+        <div class="divider divider-center"></div>
+        <p class="section-subtitle mx-auto">Catch the action and emotions from our most memorable school events.</p>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-3" data-aos="fade-up">
+          <div class="video-card rounded-3 overflow-hidden shadow-sm">
+            <div style="position:relative;">
+              <img src="https://picsum.photos/seed/vid1/600/350" alt="Sports Day Highlights" loading="lazy" />
+              <div class="video-play"><i class="fa-solid fa-play"></i></div>
+            </div>
+            <div class="video-card-caption">
+              <h6>Sports Day 2026 Highlights</h6>
+              <p><i class="fa-solid fa-clock me-1"></i>4:32 &nbsp;&nbsp;<i class="fa-solid fa-calendar me-1"></i>28 Mar 2026</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="80">
+          <div class="video-card rounded-3 overflow-hidden shadow-sm">
+            <div style="position:relative;">
+              <img src="https://picsum.photos/seed/vid2/600/350" alt="Prize Giving" loading="lazy" />
+              <div class="video-play"><i class="fa-solid fa-play"></i></div>
+            </div>
+            <div class="video-card-caption">
+              <h6>Prize Giving Ceremony 2025</h6>
+              <p><i class="fa-solid fa-clock me-1"></i>8:15 &nbsp;&nbsp;<i class="fa-solid fa-calendar me-1"></i>Oct 2025</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="160">
+          <div class="video-card rounded-3 overflow-hidden shadow-sm">
+            <div style="position:relative;">
+              <img src="https://picsum.photos/seed/vid3/600/350" alt="Drama Festival" loading="lazy" />
+              <div class="video-play"><i class="fa-solid fa-play"></i></div>
+            </div>
+            <div class="video-card-caption">
+              <h6>Drama Festival — Gold Award</h6>
+              <p><i class="fa-solid fa-clock me-1"></i>6:48 &nbsp;&nbsp;<i class="fa-solid fa-calendar me-1"></i>Mar 2026</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="240">
+          <div class="video-card rounded-3 overflow-hidden shadow-sm">
+            <div style="position:relative;">
+              <img src="https://picsum.photos/seed/vid4/600/350" alt="School Tour" loading="lazy" />
+              <div class="video-play"><i class="fa-solid fa-play"></i></div>
+            </div>
+            <div class="video-card-caption">
+              <h6>Campus Virtual Tour</h6>
+              <p><i class="fa-solid fa-clock me-1"></i>3:22 &nbsp;&nbsp;<i class="fa-solid fa-calendar me-1"></i>Jan 2026</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== ALBUMS ===================== -->
+  <section class="section-pad bg-light-custom">
+    <div class="container">
+      <div class="text-center mb-5" data-aos="fade-up">
+        <span class="section-label">Collections</span>
+        <h2 class="section-title">Browse by <span>Album</span></h2>
+        <div class="divider divider-center"></div>
+      </div>
+      <div class="row g-4">
+        <div class="col-6 col-md-4 col-lg-2" data-aos="fade-up">
+          <a href="#" class="text-decoration-none">
+            <div class="card border-0 shadow-sm text-center p-3 h-100" style="border-radius:12px; transition:transform .25s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform=''">>
+              <div style="font-size:2rem; margin-bottom:.5rem;">📸</div>
+              <div class="fw-bold" style="font-size:.9rem;">Sports Day 2026</div>
+              <div style="font-size:.77rem; color:#888;">48 photos</div>
+            </div>
+          </a>
+        </div>
+        <div class="col-6 col-md-4 col-lg-2" data-aos="fade-up" data-aos-delay="60">
+          <a href="#" class="text-decoration-none">
+            <div class="card border-0 shadow-sm text-center p-3 h-100" style="border-radius:12px; transition:transform .25s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform=''">
+              <div style="font-size:2rem; margin-bottom:.5rem;">🏆</div>
+              <div class="fw-bold" style="font-size:.9rem;">Prize Giving 2025</div>
+              <div style="font-size:.77rem; color:#888;">62 photos</div>
+            </div>
+          </a>
+        </div>
+        <div class="col-6 col-md-4 col-lg-2" data-aos="fade-up" data-aos-delay="120">
+          <a href="#" class="text-decoration-none">
+            <div class="card border-0 shadow-sm text-center p-3 h-100" style="border-radius:12px; transition:transform .25s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform=''">
+              <div style="font-size:2rem; margin-bottom:.5rem;">🎭</div>
+              <div class="fw-bold" style="font-size:.9rem;">Drama Festival</div>
+              <div style="font-size:.77rem; color:#888;">35 photos</div>
+            </div>
+          </a>
+        </div>
+        <div class="col-6 col-md-4 col-lg-2" data-aos="fade-up" data-aos-delay="180">
+          <a href="#" class="text-decoration-none">
+            <div class="card border-0 shadow-sm text-center p-3 h-100" style="border-radius:12px; transition:transform .25s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform=''">
+              <div style="font-size:2rem; margin-bottom:.5rem;">🌿</div>
+              <div class="fw-bold" style="font-size:.9rem;">Cultural Day</div>
+              <div style="font-size:.77rem; color:#888;">53 photos</div>
+            </div>
+          </a>
+        </div>
+        <div class="col-6 col-md-4 col-lg-2" data-aos="fade-up" data-aos-delay="240">
+          <a href="#" class="text-decoration-none">
+            <div class="card border-0 shadow-sm text-center p-3 h-100" style="border-radius:12px; transition:transform .25s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform=''">
+              <div style="font-size:2rem; margin-bottom:.5rem;">🔬</div>
+              <div class="fw-bold" style="font-size:.9rem;">Science Fair 2026</div>
+              <div style="font-size:.77rem; color:#888;">29 photos</div>
+            </div>
+          </a>
+        </div>
+        <div class="col-6 col-md-4 col-lg-2" data-aos="fade-up" data-aos-delay="300">
+          <a href="#" class="text-decoration-none">
+            <div class="card border-0 shadow-sm text-center p-3 h-100" style="border-radius:12px; transition:transform .25s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform=''">
+              <div style="font-size:2rem; margin-bottom:.5rem;">🏫</div>
+              <div class="fw-bold" style="font-size:.9rem;">Campus Life</div>
+              <div style="font-size:.77rem; color:#888;">120 photos</div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-banner">
+    <div class="container">
+      <div class="row align-items-center g-4">
+        <div class="col-lg-8" data-aos="fade-right">
+          <h2 class="text-white fw-bold mb-2" style="font-family:var(--ff-heading); font-size:clamp(1.5rem,3vw,2rem);">
+            Experience It In Person
+          </h2>
+          <p style="color:rgba(255,255,255,.8); margin:0;">
+            Pictures tell a story, but being here is the full experience. Book a campus visit or apply for a place at Light High School today.
+          </p>
+        </div>
+        <div class="col-lg-4 text-lg-end" data-aos="fade-left">
+          <a href="contact.html" class="btn-gold me-2">
+            <i class="fa-solid fa-calendar-check"></i> Book a Visit
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer pt-5 pb-0">
+    <div class="container">
+      <div class="row g-5 pb-5">
+        <div class="col-lg-4">
+          <a href="index.html" class="navbar-brand mb-3 d-inline-flex text-white text-decoration-none" style="font-family:var(--ff-heading);">
+            <img src="images/logo.jpeg" alt="Light High School Seguku" style="height:50px; width:auto; border-radius:50%;" class="me-2" />
+            Light High School<span style="color:var(--clr-gold); margin-left:.3rem;">Seguku</span>
+          </a>
+          <p style="font-size:.9rem; color:rgba(255,255,255,.65);" class="mb-4">
+            Enlightening Minds, Shaping Futures. A centre of academic excellence in Uganda.
+          </p>
+          <div class="social-links">
+            <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
+          </div>
+        </div>
+        <div class="col-6 col-lg-2">
+          <h5>Quick Links</h5>
+          <ul class="footer-links">
+            <li><a href="index.html"><i class="fa-solid fa-chevron-right"></i>Home</a></li>
+            <li><a href="about.html"><i class="fa-solid fa-chevron-right"></i>About Us</a></li>
+            <li><a href="academics.html"><i class="fa-solid fa-chevron-right"></i>Academics</a></li>
+            <li><a href="admissions.html"><i class="fa-solid fa-chevron-right"></i>Admissions</a></li>
+            <li><a href="contact.html"><i class="fa-solid fa-chevron-right"></i>Contact</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-lg-2">
+          <h5>Explore</h5>
+          <ul class="footer-links">
+            <li><a href="news.html"><i class="fa-solid fa-chevron-right"></i>News &amp; Events</a></li>
+            <li><a href="gallery.html"><i class="fa-solid fa-chevron-right"></i>Gallery</a></li>
+            <li><a href="student-life.html"><i class="fa-solid fa-chevron-right"></i>Student Life</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-4">
+          <h5>Contact Us</h5>
+          <div class="footer-contact-item"><i class="fa-solid fa-location-dot"></i><span>Plot 42, Kampala–Entebbe Road, Uganda</span></div>
+          <div class="footer-contact-item"><i class="fa-solid fa-phone"></i><span>+256 700 123 456</span></div>
+          <div class="footer-contact-item"><i class="fa-solid fa-envelope"></i><span>info@lighths.ac.ug</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container d-flex flex-column flex-md-row align-items-center justify-content-between gap-2">
+        <p class="mb-0">&copy; <span class="current-year"></span> Light High School, Uganda. All rights reserved.</p>
+        <p class="mb-0"><em>Creativity is the way Forward</em></p>
+      </div>
+    </div>
+  </footer>
+
+  <button id="backToTop" aria-label="Back to top"><i class="fa-solid fa-chevron-up"></i></button>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+  <script>
+    AOS.init({ once: true, duration: 700, offset: 60 });
+
+    // Lightbox
+    const lightbox = GLightbox({ selector: '.glightbox', touchNavigation: true });
+
+    // Category filter
+    const pills = document.querySelectorAll('.filter-pill');
+    const cols = document.querySelectorAll('.gallery-col');
+    pills.forEach(function(pill) {
+      pill.addEventListener('click', function() {
+        pills.forEach(p => p.classList.remove('active'));
+        this.classList.add('active');
+        const filter = this.dataset.filter;
+        cols.forEach(function(col) {
+          if (filter === 'all' || col.dataset.cat === filter) {
+            col.style.display = '';
+          } else {
+            col.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // Load more (demo)
+    document.getElementById('loadMoreBtn').addEventListener('click', function() {
+      this.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Loading…';
+      setTimeout(() => {
+        this.innerHTML = '<i class="fa-solid fa-check me-2"></i>All photos loaded';
+        this.disabled = true;
+      }, 1200);
+    });
+  </script>
+  <script src="js/main.js"></script>
+</body>
+</html>

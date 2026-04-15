@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Student life at Light High School Uganda — clubs, sports, boarding, pastoral care, and student council." />
+  <title>Student Life | Light High School Uganda</title>
+
+  <link rel="icon" type="image/jpeg" href="images/logo.jpeg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet" />
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  <link href="css/style.css" rel="stylesheet" />
+  <style>
+    /* ---- Student Life specific styles ---- */
+    .club-card {
+      border-radius: 14px; overflow: hidden; background: #fff;
+      box-shadow: 0 2px 16px rgba(0,0,0,.06); transition: transform .25s, box-shadow .25s;
+      height: 100%;
+    }
+    .club-card:hover { transform: translateY(-5px); box-shadow: 0 10px 32px rgba(0,0,0,.12); }
+    .club-card-header {
+      padding: 2rem 1.5rem; text-align: center;
+    }
+    .club-icon {
+      width: 64px; height: 64px; border-radius: 16px; display: flex; align-items: center;
+      justify-content: center; font-size: 1.6rem; margin: 0 auto 1rem;
+    }
+    .club-card-body { padding: 0 1.5rem 1.5rem; }
+    .club-card-body h5 { font-family: var(--ff-heading); font-weight: 700; font-size: 1rem; margin-bottom: .4rem; }
+    .club-card-body p { font-size: .87rem; color: #666; margin-bottom: .75rem; }
+    .club-members { font-size: .78rem; color: #888; display: flex; align-items: center; gap: .4rem; }
+
+    /* Sports grid */
+    .sport-item {
+      display: flex; align-items: center; gap: 1rem; padding: 1rem;
+      background: #fff; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,.05);
+      transition: transform .2s;
+    }
+    .sport-item:hover { transform: translateX(4px); }
+    .sport-icon {
+      width: 48px; height: 48px; background: var(--clr-primary-lt); border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem; flex-shrink: 0;
+    }
+    .sport-info h6 { font-weight: 700; margin-bottom: .1rem; font-size: .92rem; }
+    .sport-info p { font-size: .78rem; color: #888; margin: 0; }
+    .sport-badge {
+      margin-left: auto; font-size: .7rem; padding: .2rem .6rem; border-radius: 12px;
+      font-weight: 700; white-space: nowrap;
+    }
+
+    /* House colours */
+    .house-card {
+      border-radius: 12px; overflow: hidden; text-align: center; padding: 2rem 1rem;
+      color: #fff; transition: transform .25s;
+    }
+    .house-card:hover { transform: scale(1.04); }
+    .house-card h4 { font-family: var(--ff-heading); font-weight: 800; margin-bottom: .3rem; }
+    .house-card p { font-size: .88rem; opacity: .85; margin: 0; }
+
+    /* Boarding timeline */
+    .schedule-table { font-size: .9rem; }
+    .schedule-table th { background: var(--clr-primary); color: #fff; }
+    .schedule-table tr:nth-child(even) { background: var(--clr-primary-lt); }
+    .schedule-table .highlight { font-weight: 700; color: var(--clr-primary-dk); }
+
+    /* Student council card */
+    .council-card {
+      background: #fff; border-radius: 12px; box-shadow: 0 2px 16px rgba(0,0,0,.07);
+      padding: 1.5rem; text-align: center; transition: transform .25s;
+    }
+    .council-card:hover { transform: translateY(-4px); }
+    .council-img {
+      width: 80px; height: 80px; border-radius: 50%; object-fit: cover;
+      border: 3px solid var(--clr-primary); margin: 0 auto 1rem;
+    }
+    .council-card h6 { font-weight: 700; margin-bottom: .2rem; font-size: .95rem; }
+    .council-card span { font-size: .8rem; color: var(--clr-primary); font-weight: 600; }
+    .council-card p { font-size: .82rem; color: #777; margin-top: .5rem; margin-bottom: 0; }
+
+    /* Welfare highlight strip */
+    .welfare-strip {
+      background: var(--clr-dark); border-radius: 14px; overflow: hidden;
+    }
+    .welfare-item { padding: 1.5rem; border-right: 1px solid rgba(255,255,255,.1); }
+    .welfare-item:last-child { border-right: none; }
+    .welfare-item i { font-size: 1.8rem; color: var(--clr-gold); margin-bottom: .75rem; display: block; }
+    .welfare-item h6 { color: #fff; font-weight: 700; margin-bottom: .3rem; }
+    .welfare-item p { color: rgba(255,255,255,.6); font-size: .83rem; margin: 0; }
+  </style>
+</head>
+<body>
+
+  <div id="preloader">
+    <div class="preloader-logo">
+      <div class="preloader-spinner"></div>
+      <p class="fw-semibold text-primary-custom mb-0">Light High School</p>
+    </div>
+  </div>
+
+  <!-- NAVBAR -->
+  <nav id="mainNav" class="navbar navbar-expand-lg fixed-top navbar-solid">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">
+        <img src="images/logo.jpeg" alt="Light High School Seguku" class="nav-logo" />
+        <span class="brand-name">Light High School<span class="brand-sub">Seguku</span></span>
+      </a>
+      <button class="navbar-toggler border-0 p-1" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-label="Toggle navigation">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="about.html" role="button" data-bs-toggle="dropdown" aria-expanded="false">About</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="about.html"><i class="fa-solid fa-school me-2 text-primary-custom"></i>Our School</a></li>
+              <li><a class="dropdown-item" href="about.html"><i class="fa-solid fa-bullseye me-2 text-primary-custom"></i>Mission &amp; Vision</a></li>
+              <li><a class="dropdown-item" href="about.html"><i class="fa-solid fa-users me-2 text-primary-custom"></i>Leadership</a></li>
+              <li><a class="dropdown-item" href="about.html"><i class="fa-solid fa-building me-2 text-primary-custom"></i>Facilities</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="academics.html" role="button" data-bs-toggle="dropdown" aria-expanded="false">Academics</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="academics.html"><i class="fa-solid fa-book-open me-2 text-primary-custom"></i>Overview</a></li>
+              <li><a class="dropdown-item" href="academics.html"><i class="fa-solid fa-graduation-cap me-2 text-primary-custom"></i>O-Level (UCE)</a></li>
+              <li><a class="dropdown-item" href="academics.html"><i class="fa-solid fa-graduation-cap me-2 text-primary-custom"></i>A-Level (UACE)</a></li>
+              <li><a class="dropdown-item" href="academics.html"><i class="fa-solid fa-flask me-2 text-primary-custom"></i>Departments</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">School Life</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="news.html"><i class="fa-solid fa-newspaper me-2 text-primary-custom"></i>News &amp; Events</a></li>
+              <li><a class="dropdown-item" href="gallery.html"><i class="fa-solid fa-images me-2 text-primary-custom"></i>Gallery</a></li>
+              <li><a class="dropdown-item" href="student-life.html"><i class="fa-solid fa-heart me-2 text-primary-custom"></i>Student Life</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="admissions.html" role="button" data-bs-toggle="dropdown" aria-expanded="false">Admissions</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="admissions.html"><i class="fa-solid fa-file-alt me-2 text-primary-custom"></i>How to Apply</a></li>
+              <li><a class="dropdown-item" href="admissions.html"><i class="fa-solid fa-list-check me-2 text-primary-custom"></i>Requirements</a></li>
+              <li><a class="dropdown-item" href="admissions.html"><i class="fa-solid fa-money-bill me-2 text-primary-custom"></i>Fees Structure</a></li>
+              <li><hr class="dropdown-divider" /></li>
+              <li><a class="dropdown-item" href="contact.html"><i class="fa-solid fa-envelope me-2 text-primary-custom"></i>Contact Us</a></li>
+            </ul>
+          </li>
+          <li class="nav-item ms-lg-2">
+            <a class="nav-link nav-btn" href="admissions.html">Apply Now</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="container">
+      <h1 data-aos="fade-up">Student Life</h1>
+      <nav aria-label="breadcrumb" data-aos="fade-up" data-aos-delay="100">
+        <ol class="breadcrumb justify-content-center mb-0">
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item active">Student Life</li>
+        </ol>
+      </nav>
+    </div>
+  </section>
+
+  <!-- ===================== INTRO ===================== -->
+  <section class="section-pad bg-white">
+    <div class="container">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-6" data-aos="fade-right">
+          <span class="section-label">Life at Light HS</span>
+          <h2 class="section-title">More Than Just <span>Classrooms</span></h2>
+          <div class="divider"></div>
+          <p class="text-secondary">
+            At Light High School we believe that true education goes far beyond textbooks.
+            Our vibrant school community provides every student with opportunities to discover
+            their passions, build character, develop leadership skills, and forge lasting friendships
+            in a safe and nurturing environment.
+          </p>
+          <p class="text-secondary">
+            From award-winning drama groups and competitive sports teams to community service
+            initiatives and a strong student council — life at Light HS is full, purposeful, and fun.
+          </p>
+          <div class="row g-3 mt-2">
+            <div class="col-6">
+              <div class="d-flex align-items-center gap-2">
+                <i class="fa-solid fa-circle-check text-primary-custom fs-5"></i>
+                <span class="fw-semibold" style="font-size:.9rem;">30+ Active Clubs</span>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="d-flex align-items-center gap-2">
+                <i class="fa-solid fa-circle-check text-primary-custom fs-5"></i>
+                <span class="fw-semibold" style="font-size:.9rem;">10 Sports Disciplines</span>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="d-flex align-items-center gap-2">
+                <i class="fa-solid fa-circle-check text-primary-custom fs-5"></i>
+                <span class="fw-semibold" style="font-size:.9rem;">4 School Houses</span>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="d-flex align-items-center gap-2">
+                <i class="fa-solid fa-circle-check text-primary-custom fs-5"></i>
+                <span class="fw-semibold" style="font-size:.9rem;">24/7 Pastoral Care</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6" data-aos="fade-left">
+          <div style="border-radius:16px; overflow:hidden;">
+            <img src="https://picsum.photos/seed/stlife-intro/800/550" alt="Students at Light High School" class="img-fluid" loading="lazy" style="width:100%; height:400px; object-fit:cover;" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CLUBS & SOCIETIES ===================== -->
+  <section class="section-pad bg-light-custom">
+    <div class="container">
+      <div class="text-center mb-5" data-aos="fade-up">
+        <span class="section-label">Co-Curricular</span>
+        <h2 class="section-title">Clubs &amp; <span>Societies</span></h2>
+        <div class="divider divider-center"></div>
+        <p class="section-subtitle mx-auto">
+          We offer over 30 clubs across arts, STEM, leadership, culture, and service.
+          Every student is encouraged to join at least one.
+        </p>
+      </div>
+      <div class="row g-4">
+
+        <div class="col-md-6 col-lg-4" data-aos="fade-up">
+          <div class="club-card">
+            <div class="club-card-header">
+              <div class="club-icon" style="background:#e8f5ee; color:var(--clr-primary);">
+                <i class="fa-solid fa-masks-theater"></i>
+              </div>
+            </div>
+            <div class="club-card-body">
+              <h5>Drama &amp; Performing Arts</h5>
+              <p>Award-winning drama club producing annual school plays, talent shows, and competing at district and national festivals. Gold award holders 2026.</p>
+              <div class="club-members"><i class="fa-solid fa-users"></i> 65 members &nbsp;|&nbsp; <i class="fa-solid fa-calendar"></i> Meets Tues &amp; Fri</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="80">
+          <div class="club-card">
+            <div class="club-card-header">
+              <div class="club-icon" style="background:#fdf4dc; color:var(--clr-gold);">
+                <i class="fa-solid fa-flask"></i>
+              </div>
+            </div>
+            <div class="club-card-body">
+              <h5>Science &amp; Innovation Club</h5>
+              <p>Students design and build projects in robotics, renewable energy, biology, and chemistry. Winners at the National Science Fair 2026.</p>
+              <div class="club-members"><i class="fa-solid fa-users"></i> 48 members &nbsp;|&nbsp; <i class="fa-solid fa-calendar"></i> Meets Wed &amp; Sat</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="160">
+          <div class="club-card">
+            <div class="club-card-header">
+              <div class="club-icon" style="background:#e8f0fe; color:#3c5dc9;">
+                <i class="fa-solid fa-microphone-lines"></i>
+              </div>
+            </div>
+            <div class="club-card-body">
+              <h5>Debate Society</h5>
+              <p>Developing critical thinking and public speaking through weekly debates, inter-school competitions, and the annual Model Parliament.</p>
+              <div class="club-members"><i class="fa-solid fa-users"></i> 40 members &nbsp;|&nbsp; <i class="fa-solid fa-calendar"></i> Meets Mon &amp; Thu</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4" data-aos="fade-up">
+          <div class="club-card">
+            <div class="club-card-header">
+              <div class="club-icon" style="background:#fce8e8; color:#c0392b;">
+                <i class="fa-solid fa-music"></i>
+              </div>
+            </div>
+            <div class="club-card-body">
+              <h5>Music &amp; Choir</h5>
+              <p>School choir and band performing at events, worship services, and competitions. Instruments include piano, guitar, drums, and traditional Ugandan instruments.</p>
+              <div class="club-members"><i class="fa-solid fa-users"></i> 55 members &nbsp;|&nbsp; <i class="fa-solid fa-calendar"></i> Meets Tues &amp; Thu</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="80">
+          <div class="club-card">
+            <div class="club-card-header">
+              <div class="club-icon" style="background:#e8f5ee; color:var(--clr-primary);">
+                <i class="fa-solid fa-earth-africa"></i>
+              </div>
+            </div>
+            <div class="club-card-body">
+              <h5>Environmental Club</h5>
+              <p>Championing sustainability through tree planting, waste management campaigns, and partnerships with the National Environment Management Authority.</p>
+              <div class="club-members"><i class="fa-solid fa-users"></i> 70 members &nbsp;|&nbsp; <i class="fa-solid fa-calendar"></i> Meets Fri</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="160">
+          <div class="club-card">
+            <div class="club-card-header">
+              <div class="club-icon" style="background:#f3e8fe; color:#7c3aed;">
+                <i class="fa-solid fa-computer"></i>
+              </div>
+            </div>
+            <div class="club-card-body">
+              <h5>ICT &amp; Coding Club</h5>
+              <p>Teaching web design, app development, and digital literacy. Students build real websites and apps presented at the annual tech showcase.</p>
+              <div class="club-members"><i class="fa-solid fa-users"></i> 52 members &nbsp;|&nbsp; <i class="fa-solid fa-calendar"></i> Meets Wed &amp; Sat</div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /row -->
+
+      <div class="text-center mt-4" data-aos="fade-up">
+        <p class="text-secondary">Plus 24 more clubs including Young Farmers, Red Cross, Business Club, Chess Club, Photography Club, and more.</p>
+        <a href="contact.html" class="btn btn-outline-primary px-4 py-2 rounded-pill fw-semibold">
+          <i class="fa-solid fa-plus me-2"></i>Ask About Joining a Club
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SPORTS ===================== -->
+  <section class="section-pad bg-white">
+    <div class="container">
+      <div class="text-center mb-5" data-aos="fade-up">
+        <span class="section-label">Athletics &amp; Recreation</span>
+        <h2 class="section-title">Sports at <span>Light HS</span></h2>
+        <div class="divider divider-center"></div>
+        <p class="section-subtitle mx-auto">We compete at district, regional, and national level across multiple disciplines.</p>
+      </div>
+      <div class="row g-3">
+        <div class="col-md-6 col-lg-4" data-aos="fade-up">
+          <div class="sport-item">
+            <div class="sport-icon"><i class="fa-solid fa-futbol" style="color:var(--clr-primary);"></i></div>
+            <div class="sport-info">
+              <h6>Football (Boys &amp; Girls)</h6>
+              <p>District champions 2024 &amp; 2025</p>
+            </div>
+            <span class="sport-badge" style="background:var(--clr-primary-lt); color:var(--clr-primary-dk);">District Level</span>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="60">
+          <div class="sport-item">
+            <div class="sport-icon"><i class="fa-solid fa-basketball" style="color:#e67e22;"></i></div>
+            <div class="sport-info">
+              <h6>Basketball</h6>
+              <p>Active team, regional competition</p>
+            </div>
+            <span class="sport-badge" style="background:#fde9d9; color:#c0392b;">Regional</span>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="120">
+          <div class="sport-item">
+            <div class="sport-icon"><i class="fa-solid fa-volleyball" style="color:#f39c12;"></i></div>
+            <div class="sport-info">
+              <h6>Volleyball</h6>
+              <p>Girls team — runners-up 2025</p>
+            </div>
+            <span class="sport-badge" style="background:#fdf4dc; color:#b7791f;">Regional</span>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4" data-aos="fade-up">
+          <div class="sport-item">
+            <div class="sport-icon"><i class="fa-solid fa-person-running" style="color:var(--clr-primary);"></i></div>
+            <div class="sport-info">
+              <h6>Athletics &amp; Track</h6>
+              <p>5 national qualifiers in 2025</p>
+            </div>
+            <span class="sport-badge" style="background:#e8f5ee; color:var(--clr-primary-dk);">National</span>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="60">
+          <div class="sport-item">
+            <div class="sport-icon"><i class="fa-solid fa-table-tennis-paddle-ball" style="color:#3498db;"></i></div>
+            <div class="sport-info">
+              <h6>Table Tennis</h6>
+              <p>Mixed doubles team, active competitor</p>
+            </div>
+            <span class="sport-badge" style="background:#e8f0fe; color:#2c5cc5;">District Level</span>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="120">
+          <div class="sport-item">
+            <div class="sport-icon"><i class="fa-solid fa-chess" style="color:#6c757d;"></i></div>
+            <div class="sport-info">
+              <h6>Chess</h6>
+              <p>National scholastic chess finalists</p>
+            </div>
+            <span class="sport-badge" style="background:#f8f9fa; color:#495057;">National</span>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4" data-aos="fade-up">
+          <div class="sport-item">
+            <div class="sport-icon"><i class="fa-solid fa-hand-fist" style="color:#c0392b;"></i></div>
+            <div class="sport-info">
+              <h6>Taekwondo</h6>
+              <p>Mixed team, regional medalists</p>
+            </div>
+            <span class="sport-badge" style="background:#fce8e8; color:#c0392b;">Regional</span>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="60">
+          <div class="sport-item">
+            <div class="sport-icon"><i class="fa-solid fa-water" style="color:#2980b9;"></i></div>
+            <div class="sport-info">
+              <h6>Swimming</h6>
+              <p>Partnered with local aquatic centre</p>
+            </div>
+            <span class="sport-badge" style="background:#d6eaf8; color:#1a5276;">District Level</span>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="120">
+          <div class="sport-item">
+            <div class="sport-icon"><i class="fa-solid fa-cricket-bat-ball" style="color:#27ae60;"></i></div>
+            <div class="sport-info">
+              <h6>Netball</h6>
+              <p>Girls team — district silver 2025</p>
+            </div>
+            <span class="sport-badge" style="background:#e8f5ee; color:var(--clr-primary-dk);">District Level</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SCHOOL HOUSES ===================== -->
+  <section class="section-pad bg-light-custom">
+    <div class="container">
+      <div class="text-center mb-5" data-aos="fade-up">
+        <span class="section-label">House System</span>
+        <h2 class="section-title">The Four <span>Houses</span></h2>
+        <div class="divider divider-center"></div>
+        <p class="section-subtitle mx-auto">
+          Every student belongs to one of four houses, fostering team spirit, friendly rivalry, and a sense of belonging throughout their school life.
+        </p>
+      </div>
+      <div class="row g-4">
+        <div class="col-6 col-lg-3" data-aos="fade-up">
+          <div class="house-card" style="background:linear-gradient(135deg, #c0392b, #e74c3c);">
+            <i class="fa-solid fa-fire fa-2x mb-3"></i>
+            <h4>Nile House</h4>
+            <p>Strength &amp; Resilience</p>
+            <div class="mt-2" style="font-size:.75rem; opacity:.7;">Colour: Red</div>
+          </div>
+        </div>
+        <div class="col-6 col-lg-3" data-aos="fade-up" data-aos-delay="80">
+          <div class="house-card" style="background:linear-gradient(135deg, #1b6b45, #27ae60);">
+            <i class="fa-solid fa-leaf fa-2x mb-3"></i>
+            <h4>Kampala House</h4>
+            <p>Wisdom &amp; Growth</p>
+            <div class="mt-2" style="font-size:.75rem; opacity:.7;">Colour: Green</div>
+          </div>
+        </div>
+        <div class="col-6 col-lg-3" data-aos="fade-up" data-aos-delay="160">
+          <div class="house-card" style="background:linear-gradient(135deg, #2471a3, #2980b9);">
+            <i class="fa-solid fa-shield fa-2x mb-3"></i>
+            <h4>Victoria House</h4>
+            <p>Honour &amp; Integrity</p>
+            <div class="mt-2" style="font-size:.75rem; opacity:.7;">Colour: Blue</div>
+          </div>
+        </div>
+        <div class="col-6 col-lg-3" data-aos="fade-up" data-aos-delay="240">
+          <div class="house-card" style="background:linear-gradient(135deg, #b7791f, #d4a017);">
+            <i class="fa-solid fa-star fa-2x mb-3"></i>
+            <h4>Rwenzori House</h4>
+            <p>Excellence &amp; Ambition</p>
+            <div class="mt-2" style="font-size:.75rem; opacity:.7;">Colour: Gold</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== BOARDING LIFE ===================== -->
+  <section class="section-pad bg-white">
+    <div class="container">
+      <div class="text-center mb-5" data-aos="fade-up">
+        <span class="section-label">Residential Life</span>
+        <h2 class="section-title">Boarding at <span>Light HS</span></h2>
+        <div class="divider divider-center"></div>
+      </div>
+      <div class="row g-5 align-items-center">
+        <div class="col-lg-6" data-aos="fade-right">
+          <img src="https://picsum.photos/seed/boarding/800/500" alt="Boarding house" class="img-fluid rounded-3 shadow" style="height:380px; object-fit:cover; width:100%;" loading="lazy" />
+        </div>
+        <div class="col-lg-6" data-aos="fade-left">
+          <h4 class="fw-bold mb-3" style="font-family:var(--ff-heading);">A Safe, Structured Home Away from Home</h4>
+          <p class="text-secondary mb-4">
+            Our boarding programme accommodates <strong>600+ students</strong> in separate, supervised
+            boys' and girls' dormitories. Each house has a resident house parent and a nursing staff member on call.
+          </p>
+
+          <h6 class="fw-bold mb-3">Daily Schedule (Boarding)</h6>
+          <table class="table table-sm schedule-table rounded-3 overflow-hidden">
+            <thead><tr><th>Time</th><th>Activity</th></tr></thead>
+            <tbody>
+              <tr><td>5:30 AM</td><td>Wake-up &amp; Morning Devotion</td></tr>
+              <tr><td>6:00 AM</td><td>Morning Exercise / Prep</td></tr>
+              <tr><td>7:00 AM</td><td class="highlight">Breakfast</td></tr>
+              <tr><td>7:45 AM</td><td>Morning Assembly</td></tr>
+              <tr><td>8:00 AM – 4:30 PM</td><td class="highlight">Classes &amp; Games</td></tr>
+              <tr><td>5:00 PM</td><td>Sports &amp; Clubs</td></tr>
+              <tr><td>7:00 PM</td><td class="highlight">Dinner</td></tr>
+              <tr><td>7:45 – 10:00 PM</td><td class="highlight">Evening Study / Prep</td></tr>
+              <tr><td>10:00 PM</td><td>Lights Out</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Welfare strip -->
+      <div class="welfare-strip mt-5" data-aos="fade-up">
+        <div class="row g-0">
+          <div class="col-md-3 welfare-item text-center">
+            <i class="fa-solid fa-stethoscope"></i>
+            <h6>Medical Centre</h6>
+            <p>On-site nurse and sick bay, with referral to nearby hospital when needed.</p>
+          </div>
+          <div class="col-md-3 welfare-item text-center">
+            <i class="fa-solid fa-utensils"></i>
+            <h6>Nutrition &amp; Meals</h6>
+            <p>3 balanced meals per day, prepared in a modern kitchen with a resident cook.</p>
+          </div>
+          <div class="col-md-3 welfare-item text-center">
+            <i class="fa-solid fa-shield-halved"></i>
+            <h6>24/7 Security</h6>
+            <p>Perimeter wall, security guards, and CCTV throughout the campus.</p>
+          </div>
+          <div class="col-md-3 welfare-item text-center">
+            <i class="fa-solid fa-heart-pulse"></i>
+            <h6>Counselling</h6>
+            <p>Trained counsellor available Mon–Fri for academic and personal support.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== STUDENT COUNCIL ===================== -->
+  <section class="section-pad bg-light-custom">
+    <div class="container">
+      <div class="text-center mb-5" data-aos="fade-up">
+        <span class="section-label">Leadership</span>
+        <h2 class="section-title">Student <span>Council 2026</span></h2>
+        <div class="divider divider-center"></div>
+        <p class="section-subtitle mx-auto">
+          Our student council gives learners a voice in shaping school policy, planning events,
+          and serving as role models for the whole student body.
+        </p>
+      </div>
+      <div class="row g-4 justify-content-center">
+        <div class="col-6 col-md-4 col-lg-2" data-aos="fade-up">
+          <div class="council-card">
+            <img src="https://i.pravatar.cc/150?img=11" alt="Head Prefect" class="council-img" />
+            <h6>Brian Ochieng</h6>
+            <span>Head Prefect</span>
+            <p>S.6 Science — Nile House</p>
+          </div>
+        </div>
+        <div class="col-6 col-md-4 col-lg-2" data-aos="fade-up" data-aos-delay="80">
+          <div class="council-card">
+            <img src="https://i.pravatar.cc/150?img=25" alt="Head Girl" class="council-img" />
+            <h6>Aisha Namutebi</h6>
+            <span>Head Girl</span>
+            <p>S.6 Arts — Victoria House</p>
+          </div>
+        </div>
+        <div class="col-6 col-md-4 col-lg-2" data-aos="fade-up" data-aos-delay="160">
+          <div class="council-card">
+            <img src="https://i.pravatar.cc/150?img=33" alt="Deputy Head Prefect" class="council-img" />
+            <h6>James Muwanga</h6>
+            <span>Deputy Head Prefect</span>
+            <p>S.6 Business — Rwenzori</p>
+          </div>
+        </div>
+        <div class="col-6 col-md-4 col-lg-2" data-aos="fade-up" data-aos-delay="240">
+          <div class="council-card">
+            <img src="https://i.pravatar.cc/150?img=47" alt="Entertainment" class="council-img" />
+            <h6>Grace Atim</h6>
+            <span>Entertainment Prefect</span>
+            <p>S.5 Science — Kampala House</p>
+          </div>
+        </div>
+        <div class="col-6 col-md-4 col-lg-2" data-aos="fade-up" data-aos-delay="320">
+          <div class="council-card">
+            <img src="https://i.pravatar.cc/150?img=57" alt="Sports Prefect" class="council-img" />
+            <h6>Samuel Bbosa</h6>
+            <span>Sports Prefect</span>
+            <p>S.6 Science — Nile House</p>
+          </div>
+        </div>
+        <div class="col-6 col-md-4 col-lg-2" data-aos="fade-up" data-aos-delay="400">
+          <div class="council-card">
+            <img src="https://i.pravatar.cc/150?img=21" alt="Environment" class="council-img" />
+            <h6>Patience Kyomugisha</h6>
+            <span>Environment Prefect</span>
+            <p>S.5 Arts — Victoria House</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== PASTORAL CARE ===================== -->
+  <section class="section-pad bg-white">
+    <div class="container">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-6" data-aos="fade-right">
+          <span class="section-label">Wellbeing</span>
+          <h2 class="section-title">Pastoral Care &amp; <span>Support</span></h2>
+          <div class="divider"></div>
+          <p class="text-secondary mb-3">
+            We are committed to the holistic wellbeing of every student. Our pastoral support
+            system ensures that no learner feels alone — whether dealing with academic pressure,
+            personal challenges, or adjustment difficulties.
+          </p>
+          <div class="row g-3">
+            <div class="col-12">
+              <div class="d-flex gap-3 align-items-start">
+                <div class="icon-box flex-shrink-0" style="width:44px; height:44px;"><i class="fa-solid fa-person-chalkboard"></i></div>
+                <div>
+                  <h6 class="fw-bold mb-1">Form Teacher System</h6>
+                  <p class="text-secondary mb-0" style="font-size:.88rem;">Each class has a dedicated form teacher who meets with students weekly and tracks individual progress.</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="d-flex gap-3 align-items-start">
+                <div class="icon-box flex-shrink-0" style="width:44px; height:44px;"><i class="fa-solid fa-hand-holding-heart"></i></div>
+                <div>
+                  <h6 class="fw-bold mb-1">Guidance &amp; Counselling</h6>
+                  <p class="text-secondary mb-0" style="font-size:.88rem;">A full-time school counsellor is available for individual or group sessions throughout the week.</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="d-flex gap-3 align-items-start">
+                <div class="icon-box flex-shrink-0" style="width:44px; height:44px;"><i class="fa-solid fa-people-group"></i></div>
+                <div>
+                  <h6 class="fw-bold mb-1">Peer Support Programme</h6>
+                  <p class="text-secondary mb-0" style="font-size:.88rem;">Senior students trained as peer supporters help younger students navigate transitions and challenges.</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="d-flex gap-3 align-items-start">
+                <div class="icon-box flex-shrink-0" style="width:44px; height:44px;"><i class="fa-solid fa-phone"></i></div>
+                <div>
+                  <h6 class="fw-bold mb-1">Parent Communication</h6>
+                  <p class="text-secondary mb-0" style="font-size:.88rem;">Regular parent–teacher meetings, SMS updates, and an open-door policy for parental concerns.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6" data-aos="fade-left">
+          <img src="https://picsum.photos/seed/pastoral/800/550" alt="Pastoral care" class="img-fluid rounded-3 shadow" style="width:100%; height:400px; object-fit:cover;" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-banner">
+    <div class="container">
+      <div class="row align-items-center g-4">
+        <div class="col-lg-8" data-aos="fade-right">
+          <h2 class="text-white fw-bold mb-2" style="font-family:var(--ff-heading); font-size:clamp(1.5rem,3vw,2rem);">
+            Give Your Child More Than an Education
+          </h2>
+          <p style="color:rgba(255,255,255,.8); margin:0;">
+            Apply for S.1 or S.5 admission and let them thrive in our vibrant, nurturing community.
+          </p>
+        </div>
+        <div class="col-lg-4 text-lg-end" data-aos="fade-left">
+          <a href="admissions.html" class="btn-gold">
+            <i class="fa-solid fa-pen-to-square"></i> Apply Now
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer pt-5 pb-0">
+    <div class="container">
+      <div class="row g-5 pb-5">
+        <div class="col-lg-4">
+          <a href="index.html" class="navbar-brand mb-3 d-inline-flex text-white text-decoration-none" style="font-family:var(--ff-heading);">
+            <img src="images/logo.jpeg" alt="Light High School Seguku" style="height:50px; width:auto; border-radius:50%;" class="me-2" />
+            Light High School<span style="color:var(--clr-gold); margin-left:.3rem;">Seguku</span>
+          </a>
+          <p style="font-size:.9rem; color:rgba(255,255,255,.65);" class="mb-4">
+            Enlightening Minds, Shaping Futures. A centre of academic excellence in Uganda.
+          </p>
+          <div class="social-links">
+            <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
+          </div>
+        </div>
+        <div class="col-6 col-lg-2">
+          <h5>Quick Links</h5>
+          <ul class="footer-links">
+            <li><a href="index.html"><i class="fa-solid fa-chevron-right"></i>Home</a></li>
+            <li><a href="about.html"><i class="fa-solid fa-chevron-right"></i>About Us</a></li>
+            <li><a href="academics.html"><i class="fa-solid fa-chevron-right"></i>Academics</a></li>
+            <li><a href="admissions.html"><i class="fa-solid fa-chevron-right"></i>Admissions</a></li>
+            <li><a href="contact.html"><i class="fa-solid fa-chevron-right"></i>Contact</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-lg-2">
+          <h5>Explore</h5>
+          <ul class="footer-links">
+            <li><a href="news.html"><i class="fa-solid fa-chevron-right"></i>News &amp; Events</a></li>
+            <li><a href="gallery.html"><i class="fa-solid fa-chevron-right"></i>Gallery</a></li>
+            <li><a href="student-life.html"><i class="fa-solid fa-chevron-right"></i>Student Life</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-4">
+          <h5>Contact Us</h5>
+          <div class="footer-contact-item"><i class="fa-solid fa-location-dot"></i><span>Plot 42, Kampala–Entebbe Road, Uganda</span></div>
+          <div class="footer-contact-item"><i class="fa-solid fa-phone"></i><span>+256 700 123 456</span></div>
+          <div class="footer-contact-item"><i class="fa-solid fa-envelope"></i><span>info@lighths.ac.ug</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container d-flex flex-column flex-md-row align-items-center justify-content-between gap-2">
+        <p class="mb-0">&copy; <span class="current-year"></span> Light High School, Uganda. All rights reserved.</p>
+        <p class="mb-0"><em>Creativity is the way Forward</em></p>
+      </div>
+    </div>
+  </footer>
+
+  <button id="backToTop" aria-label="Back to top"><i class="fa-solid fa-chevron-up"></i></button>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>AOS.init({ once: true, duration: 700, offset: 60 });</script>
+  <script src="js/main.js"></script>
+</body>
+</html>
